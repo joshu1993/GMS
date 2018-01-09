@@ -1,15 +1,25 @@
 <?php
-//file: view/actividades/add.php
-require_once(__DIR__."/../../core/ViewManager.php");
-$view = ViewManager::getInstance();
+require_once("../core/connectionBD.php");
+require_once("../controller/ActividadController.php");
+require_once("../controller/UsuarioController.php");
 
-$actividad = $view->getVariable("actividad");
-$user = $view->getVariable("user");
-$errors = $view->getVariable("errors");
 
-$view->setVariable("nombreactividad", "Edit Actividad");
+if(!isset($_SESSION)) session_start();
+$ucontroler = new controlador_Usuario();
+$usuarioActual =  $ucontroler->getUsuarioActual($_SESSION['nombreactividad']);
+if($_SESSION['tipousuario'] != "administrador" && $_SESSION['tipousuario'] != "entrenador"){
+	header("Location: error.php");
+	exit();
+}
 
-?><h1><?= i18n("Crear actividad")?></h1>
+if (isset($_GET['lang'])) {
+     $lang = $_GET['lang'];
+       }else{
+           $lang="es";
+       }
+
+?>
+<h1><?= i18n("Crear actividad")?></h1>
 
 <form action="index.php?controller=actividades&amp;action=add" method="POST">
 <div class='form'>
@@ -22,32 +32,18 @@ $view->setVariable("nombreactividad", "Edit Actividad");
 	htmlentities($actividad->getdescripcionactividad()) ?></textarea>
 	<?= isset($errors["descripcionactividad"])?i18n($errors["descripcionactividad"]):"" ?><br>
 
-	<?= i18n("dia") ?>: <input type="text" name="dia"
-	value="<?= $actividad->getdia() ?>">
-	<?= isset($errors["dia"])?i18n($errors["dia"]):"" ?><br>
+	<?= i18n("Horario") ?>:<input type="text" name="horario" value="<? =$actividad->gethorario() ?>">
+    <input type="text" placeholder = "YYYY-MM-DD HH:MM:SS" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}" name="horario" class="input" required="true"/>
+	<?= isset($errors["horario"])?i18n($errors["horario"]):"" ?><br>
 	
-	<?= i18n("hora") ?>: <input type="text" name="hora"
-	value="<?= $actividad->gethora() ?>">
-	<?= isset($errors["hora"])?i18n($errors["hora"]):"" ?><br>
-
 	<?= i18n("capacidad") ?>: <input type="text" name="capacidad"
 	value="<?= $actividad->getcapacidad() ?>">
 	<?= isset($errors["capacidad"])?i18n($errors["capacidad"]):"" ?><br>
-
-	<?= i18n("User 1") ?>: <input type="text" name="nombreuser1">
-	<?= isset($errors["nombreuser1"])?i18n($errors["nombreuser1"]):"" ?><br>
-
-	<?= i18n("User 2") ?>: <input type="text" name="nombreuser2">
-	<?= isset($errors["nombreuser2"])?i18n($errors["nombreuser2"]):"" ?><br>
-
-	<?= i18n("User 3") ?>: <input type="text" name="nombreuser3">
-	<?= isset($errors["nombreuser3"])?i18n($errors["nombreuser3"]):"" ?><br>
-
-	<?= i18n("User 4") ?>: <input type="text" name="nombreuser4">
-	<?= isset($errors["nombreuser4"])?i18n($errors["nombreuser4"]):"" ?><br>
-
-	<?= i18n("User 5") ?>: <input type="text" name="nombreuser5">
-	<?= isset($errors["nombreuser5"])?i18n($errors["nombreuser5"]):"" ?><br>
+	
+	<?= i18n("tipoActividad") ?>: <input type="text" name="tipoActividad"
+	value="<?= $actividad->gettipoActividad() ?>">
+	<?= isset($errors["tipoActividad"])?i18n($errors["tipoActividad"]):"" ?><br>
+	
 
 </div>
 	<input type="submit" name="submit" value="crear">

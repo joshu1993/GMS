@@ -9,31 +9,85 @@ require_once(__DIR__."/../model/Actividad.php");
 class ActividadMapper {
 
 
-	private $db;
+	public function listarActividades() {
+		
+		global $connect;
+		
+		$consulta= $connect->query("SELECT * FROM actividad");
+	
 
-	public function __construct() {
-		$this->db = PDOConnection::getInstance();
+		$listaActividades = array();
+		while ($current = mysqli_fetch_assoc($consulta)) {
+
+      $actividad = new Actividad ($current["nombreActividad"], $current["descripcionActividad"], $current["horario"], $current["capacidad"],
+      $current["tipoActividad"], $current["idActividad"]);
+			array_push($listaActividades, $actividad);
+		}
+		return $listaActividades;
+	}
+	
+	 public function listarActividadesIndividuales (){
+		global $connect;
+		$consulta = $connect->query("SELECT * FROM Actividad where tipoActividad='Individual'");
+		$listaActividades = array();
+		while ($current = mysqli_fetch_assoc($consulta)) {
+
+       $actividad = new Actividad ($current["nombreActividad"], $current["descripcionActividad"], $current["horario"], $current["capacidad"],
+	   $current["tipoActividad"], $current["idActividad"]);
+			array_push($listaActividades, $actividad);
+		}
+		return $listaActividades;
 	}
 
+	public function listarActividadesGrupo (){
+		global $connect;
+		$consulta = $connect->query("SELECT * FROM Actividad where tipoActividad='Grupo'");
+		$listaActividades = array();
+		while ($current = mysqli_fetch_assoc($consulta)) {
 
-	public function listarActividades() {
-		$stmt= $this->db->query("SELECT * FROM actividad");
-		$actividad_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-		$actividades = array();
-
-		foreach ($actividad_db as $actividad) {
-			array_push($actividades, new Actividad($actividad["idactividad"],$actividad["nombreactividad"], $actividad["descripcionactividad"], $actividad["dia"],$actividad["hora"], $actividad["capacidad"]));
+       $actividad = new Actividad ($current["nombreActividad"], $current["descripcionActividad"], $current["horario"], $current["capacidad"],
+       $current["tipoActividad"], $current["idActividad"]);
+			array_push($listaActividades, $actividad);
 		}
+		return $listaActividades;
+	}
+	
+	public function getActividad ($idActividad){
+			global $connect;
+			$consulta = $connect->query("SELECT * FROM Actividad WHERE idActividad = $idActividad");
+      $current = mysqli_fetch_assoc($consulta);
 
+      $actividad = new Actividad ($current["nombreActividad"], $current["descripcionActividad"], $current["horario"], $current["capacidad"],
+       $current["tipoActividad"], $current["idActividad"]);
+
+		return $actividad;
+	}
+	
+	public function eliminarActividad ($idActividad){
+    global $connect;
+		$connect->query("DELETE FROM Actividad WHERE idActividad = $idActividad");
+	}
+	
+	
+	public function findAllActividades() {
+		$stmt = $this->db->query("SELECT * FROM Actividad");
+		$actividades_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$actividades = array();
+		foreach ($actividades_db as $actividad) {
+			array_push($actividades, new Actividad($actividad["nombreActividad"], $actividad["descripcionActividad"], $actividad["horario"], $actividad["capacidad"], $actividad["tipoActividad"]));
+		}
 		return $actividades;
 	}
 
+	
 
-	public function findById($actividadid){
-		$stmt = $this->db->prepare("SELECT * FROM actividad WHERE idactividad=?");
-		$stmt->execute(array($actividadid));
-		$actividad = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+	public function findActividadById($actividadid){
+		
+		global $connect;
+		$consulta = $connect->query("SELECT * FROM Actividad WHERE idActividad='" .$actividadid. "'");
+		$actividad = mysqli_fetch_assoc($consulta);
 
 		if($actividad != null) {
 			return new Actividad(
@@ -50,10 +104,11 @@ class ActividadMapper {
 	}
 	
 	
+	/*
 	public function findByName($actividadName){
-		$stmt = $this->db->prepare("SELECT * FROM actividad WHERE nombreactividad=?");
-		$stmt->execute(array($actividadName));
-		$actividad = $stmt->fetch(PDO::FETCH_ASSOC);
+		global $connect;
+		$consulta = $connect->query("SELECT * FROM Actividad WHERE nombreActividad='" .$actividadName. "'");
+		$actividad = mysqli_fetch_assoc($consulta);
 
 		if($actividad != null) {
 			return new Actividad(
@@ -63,7 +118,7 @@ class ActividadMapper {
 			return NULL;
 		}
 	}
-	
+	*/
 	
 	
 	public function apuntarUsuarioActividad($nombreusuario,$actividadid){
@@ -107,15 +162,15 @@ class ActividadMapper {
 
 
 		public function save(Actividad $actividad) {
-			$stmt = $this->db->prepare("INSERT INTO actividad(nombreactividad, descripcionactividad, dia, hora, capacidad) values (?,?,?,?,?)");
-			$stmt->execute(array($actividad->getnombreactividad(), $actividad->getdescripcionactividad(), $actividad->getdia(), $actividad-> gethora(), $actividad->getcapacidad()));
+			$stmt = $this->db->prepare("INSERT INTO actividad(nombreactividad, descripcionactividad, horario, capacidad, tipoActividad) values (?,?,?,?,?)");
+			$stmt->execute(array($actividad->getnombreactividad(), $actividad->getdescripcionactividad(), $actividad-> gethorario(), $actividad->getcapacidad(), $actividad->getipoActividad()));
 			return $this->db->lastInsertId();
 		}
 
 
 		public function update(Actividad $actividad) {
-			$stmt = $this->db->prepare("UPDATE actividad set nombreactividad=?, descripcionactividad=?, dia=?, hora=?, capacidad=? where idactividad=?");
-			$stmt->execute(array($actividad->getnombreactividad(), $actividad->getdescripcionactividad(), $actividad->getdia(), $actividad-> gethora(), $actividad->getcapacidad(), $actividad->getidactividad()));
+			$stmt = $this->db->prepare("UPDATE actividad set nombreactividad=?, descripcionactividad=?, horario=?, capacidad=?, tipoActividad=? where idactividad=?");
+			$stmt->execute(array($actividad->getnombreactividad(), $actividad->getdescripcionactividad(), $actividad-> gethorario(), $actividad->getcapacidad(), $actividad->getipoActividad(), $actividad->getidactividad()));
 		}
 
 		public function delete(Actividad $actividad) {
@@ -131,6 +186,34 @@ class ActividadMapper {
 		public function deleteUsuarioFromActividad(User $usuario, Actividad $actividad) {
 			$stmt = $this->db->prepare("DELETE from Usuario_apunta_Actividades WHERE Usuario_nombreusuario=? AND Actividad_idactividad=?");
 			$stmt->execute(array($usuario->getUsername(),$actividad->getidactividad()));
+			
 		}
+		
+		
+		public function reservar($idActividad,$usuarioActual){
+	   global $connect;
+	   $consulta = "SELECT capacidad FROM Actividad WHERE idActividad ='" .$idActividad. "'" ;
+	   $resultado= $connect->query($consulta);
+	   $plazas = mysqli_fetch_assoc($resultado);
+	   $query = "SELECT count(idReserva) FROM Reserva WHERE Usuario_nombreusuario = '".$usuarioActual."' and Actividad_idactividad ='".$idActividad."'";
+	   $result = $connect->query($query);
+	   $existe = mysqli_fetch_assoc($result);
+
+		if($plazas['capacidad'] == 0){
+				echo '<script language="javascript">alert("No quedan plazas disponibles para esta actividad");</script>';
+		}else if($existe['count(idReserva)'] != 0 ){
+			echo '<script language="javascript">alert("Ya tienes una plaza reservada en esta actividad");</script>';
+			}else{
+				$plazasRestantes = $plazas['capacidad'] - 1;
+				$plazasOcupadas = 0;
+				$plazasOcupadas++;
+				mysqli_query($connect,"UPDATE Actividad SET capacidad = '" .$plazasRestantes. "' WHERE idactividad ='" .$idActividad. "'");
+				mysqli_query($connect,"INSERT INTO Reserva(Usuario_nombreusuario,Actividad_idactividad,fecha,plazas_ocupadas) VALUES('" .$_SESSION['nombreusuario']."', '" .$idactividad."', '" .date("Y-m-d")."', '" .$plazasOcupadas."')");
+				echo '<script language="javascript">alert("Has reservado plaza en esta actividad");window.location.href="../view/adminActividades.php";</script>';
+			}
+		
+	}
+		
+		
 
 	}

@@ -7,14 +7,11 @@ class UserMapper {
 
 	private $db;
 
-	public function __construct() {
-		$this->db = PDOConnection::getInstance();
-	}
-
+	
 
 	public function findAll() {
 			$stmt = $this->db->query("SELECT * FROM usuario");
-			$users_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			
 
 			$users = array();
 

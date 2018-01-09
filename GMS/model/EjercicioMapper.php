@@ -9,16 +9,12 @@ require_once(__DIR__."/../model/Ejercicio.php");
 class EjercicioMapper {
 
 
-	private $db;
 
-	public function __construct() {
-		$this->db = PDOConnection::getInstance();
-	}
-
-
+/*
+	
 	public function findAll() {
 		$stmt = $this->db->query("SELECT * FROM ejercicio");
-		$ejercicios_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
 
 		$ejercicios = array();
 
@@ -96,5 +92,5 @@ class EjercicioMapper {
 			$stmt = $this->db->prepare("DELETE from ejercicio WHERE idejercicio=?");
 			$stmt->execute(array($ejercicio->getId()));
 		}
-
+*/
 	}

@@ -70,6 +70,32 @@ CREATE TABLE IF NOT EXISTS `gymGMS`.`Actividad` (
  
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `gimnasio`.`Reserva`  
+-- -----------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS `gymGMS`.`Reserva` (
+  `idReserva` INT NOT NULL AUTO_INCREMENT,
+  `Usuario_nombreusuario` VARCHAR(10) NOT NULL,
+  `Actividad_idactividad` INT NOT NULL,
+  `fecha` DATE NOT NULL,
+  `plazas_ocupadas` INT(2) NOT NULL,
+  PRIMARY KEY (`idReserva`),
+  INDEX `fk_Reserva_Actividad1_idx` (`Actividad_idactividad` ASC),
+  INDEX `fk_Reserva_Usuario1_idx` (`Usuario_nombreusuario` ASC),
+  CONSTRAINT `fk_Reserva_Actividad1`
+    FOREIGN KEY (`Actividad_idactividad`)
+    REFERENCES `gymGMS`.`Actividad` (`idactividad`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Reserva_Usuario1`
+    FOREIGN KEY (`Usuario_nombreusuario`)
+    REFERENCES `gymGMS`.`Usuario` (`nombreusuario`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `gimnasio`.`TablaEjercicios` 

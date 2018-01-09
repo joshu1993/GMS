@@ -10,7 +10,7 @@ require_once(__DIR__."/../controller/BaseController.php");
 
 
 class EjerciciosController extends BaseController {
-
+/*
 
 	private $ejercicioMapper;
 
@@ -193,4 +193,6 @@ class EjerciciosController extends BaseController {
 		$this->view->redirect("ejercicios", "index");
 
 	}
+	
+	*/
 }
