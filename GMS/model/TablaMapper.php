@@ -1,6 +1,6 @@
 <?php
 // file: model/ExerciseMapper.php
-require_once(__DIR__."/../core/PDOConnection.php");
+require_once(__DIR__."/../core/ConnectionBD.php");
 
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/Tabla.php");

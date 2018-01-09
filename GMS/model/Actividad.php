@@ -8,20 +8,20 @@ class Actividad {
     private $idactividad;
     private $nombreactividad;
     private $descripcionactividad;
-    private $dia;
-    private $hora;
+	private $horario;
     private $capacidad;
+	private $tipoActividad;
 	
 
-    public function __construct($idactividad="" , $nombreactividad="", $descripcionactividad="" , $dia="" , $hora="",
-		$capacidad="") {
+    public function __construct($nombreactividad, $descripcionactividad,$horario,
+		$capacidad, $tipoActividad,$idactividad=NULL) {
 
 		$this->idactividad = $idactividad;
         $this->nombreactividad = $nombreactividad;
         $this->descripcionactividad = $descripcionactividad;
-        $this->dia = $dia;
-        $this->hora = $hora;
+        $this->horario = $horario;
         $this->capacidad = $capacidad;
+		$this->tipoActividad= $tipoActividad;
 
     }
 
@@ -55,23 +55,12 @@ class Actividad {
 		$this ->descripcionactividad= $descripcionactividad;
     }
 
-	public function getdia (){
-      
-        return $this ->dia;
-    }
-	public function setdia ($dia){
-      
-        $this ->dia= $dia;
-    }
-
-    public function gethora (){
+	
+    public function gethorario (){
        
-        return $this ->hora;
+        return $this ->horario;
     }
-	 public function sethora ($hora){
-       
-        $this ->hora= $hora;
-    }
+	
 
     public function getcapacidad (){
 
@@ -82,14 +71,25 @@ class Actividad {
 
         $this ->capacidad=$capacidad;
     }
+	 public function gettipoActividad (){
+
+        return $this ->tipoActividad;
+    }
 	
+	//comprueba los datos nuevos
 	public function checkIsValidForCreate() {
 		$errors = array();
 		if (strlen(trim($this->nombreactividad)) == 0 ) {
-			$errors["nombreactividad"] = "nombreactividad is mandatory";
+			$errors["nombreactividad"] = "la actividad tiene que tener nombre";
 		}
 		if (strlen(trim($this->descripcionactividad)) == 0 ) {
-			$errors["descipcionactividad"] = "descripcionactividad is mandatory";
+			$errors["descipcionactividad"] = "la actividad tiene que tener descripcion";
+		}
+		if ($this->capacidad == 0 ) {
+				$errors["numPlazas"] = "La actividad debe tener al menos 1 plaza.";
+		}
+		if (strlen(trim($this->tipoActividad)) == 0 ) {
+				$errors["tipoActividad"] = "La actividad debe tener tipo.";
 		}
 
 		if (sizeof($errors) > 0){
@@ -97,6 +97,8 @@ class Actividad {
 		}
 	}
 	
+	
+	//comprobar datos de modificacion
 	public function checkIsValidForUpdate() {
 		$errors = array();
 

@@ -63,9 +63,9 @@ CREATE TABLE IF NOT EXISTS `gymGMS`.`Actividad` (
   `idactividad` INT NOT NULL AUTO_INCREMENT,
   `nombreactividad` VARCHAR(45) NULL,
   `descripcionactividad` VARCHAR(45) NULL,
-  `dia`INT NULL,
-  `hora` INT NULL,
+  `horario` DATETIME NOT NULL,
   `capacidad` INT NULL,
+  `tipoActividad` VARCHAR(45) NOT NULL,
    PRIMARY KEY (`idactividad`))
  
 ENGINE = InnoDB;
