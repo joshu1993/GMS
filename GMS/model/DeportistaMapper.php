@@ -1,5 +1,5 @@
 <?php
-require_once("../resources/ConnectionBD.php");
+require_once("../core/connectionBD.php");
 require_once("../model/Deportista.php");
 if(!isset($_SESSION)) session_start();
 
@@ -9,7 +9,7 @@ class DeportistaMapper {
 
     public function saveDeportista($deportista) {
     global $connect;
-    $consulta= " INSERT INTO Deportista (nombreusuario, Usuario_nombreusuario, tipodeportista) VALUES ('". $deportista->getUsername() ."',
+    $consulta= " INSERT INTO Deportista (nombre, nombreusuario, Usuario_nombreusuario, tipodeportista) VALUES ('". $deportista->getUsername() ."',
      '". $_SESSION["nombreusuario"] ."', '". $deportista->getTipo() ."')";
     $connect->query($consulta);
   }
@@ -29,7 +29,7 @@ class DeportistaMapper {
     $resultado = $connect->query($consulta);
 	$listaDeportistas = array();
 	while ($current = mysqli_fetch_assoc($resultado)){
-      $deportista = new Deportista($current["nombreusuario"],$current["contraseña"],$current["email"],$current["tipousuario"],$current["tipodeportista"],NULL);
+      $deportista = new Deportista($current["nombre"],$current["nombreusuario"],$current["contraseña"],$current["email"],$current["tipousuario"],$current["tipodeportista"],NULL);
 	  array_push($listaDeportistas, $deportista);
 	}
 	return $listaDeportistas;
@@ -41,7 +41,7 @@ class DeportistaMapper {
     $resultado = $connect->query($consulta);
 		$listaDeportistas = array();
 		while ($current = mysqli_fetch_assoc($resultado)) {
-        $deportista = new Deportista($current["nombreusuario"],$current["contraseña"],$current["email"],$current["tipousuario"],$current["tipodeportista"]);
+        $deportista = new Deportista($current["nombre"],$current["nombreusuario"],$current["contraseña"],$current["email"],$current["tipousuario"],$current["tipodeportista"]);
 				array_push($listaDeportistas, $deportista);
 		}
 		return $listaDeportistas;
@@ -53,14 +53,14 @@ class DeportistaMapper {
     $connect->query($consulta);
   }
 
-  public function searchName($nombreusuario){
+  public function searchUsername($nombreusuario){
     global $connect;
     $consulta = "SELECT * FROM Usuario U, Deportista D WHERE U.nombreusuario = D.nombreusuario AND U.nombreusuario='$nombreusuario' ";
     $res = $connect->query($consulta);
     $resultado = mysqli_fetch_assoc($res);
 
     if($resultado != null) {
-      return new Deportista($resultado["nombreusuario"],$resultado["contraseña"],$resultado["email"],$resultado["tipousuario"],$resultado["tipodeportista"]);
+      return new Deportista($resultado["nombre"],$resultado["nombreusuario"],$resultado["contraseña"],$resultado["email"],$resultado["tipousuario"],$resultado["tipodeportista"]);
     } else {
       return NULL;
     }
@@ -70,7 +70,7 @@ class DeportistaMapper {
 		global $connect;
 		$consulta= "UPDATE Deportista set nombreusuario='".$deportista->getUsername()."', tipodeportista='".$deportista->getUserType()."' WHERE nombreusuario='".$nombreAntiguo."'";
 		$connect->query($consulta);
-    $consulta2= "UPDATE Usuario SET nombreusuario='". $deportista->getUsername() ."' , contraseña='". $deportista->getPassword() ."', email='". $deportista->getMail() ."' WHERE nombreusuario='". $nombreAntiguo ."'";
+    $consulta2= "UPDATE Usuario SET nombre='".$deportista->getName()."',nombreusuario='". $deportista->getUsername() ."' , contraseña='". $deportista->getPassword() ."', email='". $deportista->getMail() ."' WHERE nombreusuario='". $nombreAntiguo ."'";
     $connect->query($consulta2);
 	}
 }

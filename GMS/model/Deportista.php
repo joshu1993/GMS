@@ -1,13 +1,13 @@
 <?php
 require_once("User.php");
-require_once("../resources/ValidationException.php");
+require_once(__DIR__."/../core/ValidationException.php");
 class Deportista extends User {
 
 	public $tipo;
 
-	function __construct($nombreusuario,$contraseña,$email,$tipousuario,$tipodeportista)
+	function __construct($nombre, $nombreusuario,$contraseña,$email,$tipousuario,$tipodeportista)
 	{
-		parent::__construct($nombreusuario,$contraseña,$email,$tipousuario);
+		parent::__construct($nombre, $nombreusuario,$contraseña,$email,$tipousuario);
 		$this ->tipo = $tipodeportista;
 	}
 

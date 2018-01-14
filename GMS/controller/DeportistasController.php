@@ -28,8 +28,8 @@ class DeportistasController{
 
     if(isset($_POST["nombreusuario"])){ //Cogemos los datos de http
 
-      $deportista = new Deportista($_POST["nombreusuario"],$_POST["contraseña"],$_POST["email"],"deportista",$_POST["tipo"]);
-      $user = new User($_POST["nombreusuario"],$_POST["contraseña"],$_POST["email"],"deportista");
+      $deportista = new Deportista($_POST["nombreusuario"],$_POST["nombre"],$_POST["contraseña"],$_POST["correo"],"deportista",$_POST["tipo"]);
+      $user = new User($_POST["nombreusuario"],$_POST["nombre"],$_POST["contraseña"],$_POST["correo"],"deportista");
 
       try{
 
@@ -76,7 +76,7 @@ class DeportistasController{
 
     $nombredepor = $_REQUEST["nombreusuario"];
     echo $nombredepor;
-    $deportista = $deportistaMapper->searchName($nombredepor);
+    $deportista = $deportistaMapper->searchUsername($nombredepor);
     print_r($deportista);
     if ($deportista == NULL) {
       throw new Exception("No existe deportista con nobre: ".$nombredepor);
@@ -84,13 +84,13 @@ class DeportistasController{
 
     // Delete the Post object from the database
     $deportistaMapper->deleteDeportista($deportista);
-    $usuarioMapper->delete($deportista->getUsername());
+    $userMapper->delete($deportista->getUsername());
 
     header("Location: ../view/adminDeportistas.php?lang=$lang");
   }
 
   public function buscarDeportista($nombreusuario){
-    return $this->deportistaMapper->searchName($nombreusuario);
+    return $this->deportistaMapper->searchUsername($nombreusuario);
   }
 
   public function modificarDeportista(){
@@ -102,17 +102,18 @@ class DeportistasController{
 		$lang = "es";
 	}
     $nombredepor = $_POST['nombreusuario'];
+    $nombre = $_POST['nombre'];
     $contraseñadepor = $_POST['contraseña'];
-    $emaildepor = $_POST['email'];
+    $correodepor = $_POST['correo'];
     $tipodepor = $_POST['tipodeportista'];
     $nombreAntiguo = $_POST['nombreAntiguo'];
 
 
 
-    $deportista= new Deportista($nombredepor, $contraseñadepor, $emaildepor,"deportista",$tipodepor);
-    $usuario = new Usuario($nombredepor,$contraseñadepor, $emaildepor,"deportista");
+    $deportista= new Deportista($nombredepor, $nombre, $contraseñadepor, $correodepor,"deportista",$tipodepor);
+    $user = new User($nombredepor, $nombre,$contraseñadepor, $correodepor,"deportista");
     $deportistaMapper->updateDeportista($deportista,$nombreAntiguo);
-    $usuarioMapper->update($usuario,$nombreAntiguo);
+    $userMapper->update($user,$nombreAntiguo);
     echo '<script language="javascript">alert("'.__('Se ha modificado el deportista.',$lang).'"); window.location.href="../view/adminDeportistas.php?lang='.$lang.'";</script>';
   }
 

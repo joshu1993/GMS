@@ -1,7 +1,7 @@
 <?php
 require_once("../model/User.php");
 require_once("../model/UserMapper.php");
-require_once("../resources/ConnectionBD.php");
+require_once("../core/connectionBD.php");
 
 class UsersController{
 
@@ -15,8 +15,8 @@ class UsersController{
 //LOGIN
 public static function login(){
 		global $connect;
-		$usuario = $_POST['nombreusuario'];
-		$password = $_POST['contraseña'];
+		$nombreusuario = $_POST['nombreusuario'];
+		$contraseña = $_POST['contraseña'];
 		if (isset($_GET['lang'])) {
 			$lang = $_GET['lang'];
 		} else {
@@ -56,7 +56,7 @@ public static function login(){
 		}
 
 		public static function getcurrentUser($nombreusuario){
-			return User::getbyName($nombreusuario);
+			return User::getbyUsername($nombreusuario);
 		}
 
 		public function listarEntrenadores()
@@ -64,8 +64,8 @@ public static function login(){
 			return $this->usuarioMapper->listarEntrenadores();
 		}
 
-		public static function searchByName($nombreusuario){
-			return $this->userMapper->findByName($nombreusuario);
+		public static function searchByUsername($nombreusuario){
+			return $this->userMapper->findByUsername($nombreusuario);
 		}
 
 //REGISTRO
@@ -81,7 +81,7 @@ public static function register()
 		    if(isset($_POST["nombreusuario"]))
 		    {
 
-			    $user = new User($_POST["nombreusuario"],$_POST["contraseña"],$_POST["email"],"entrenador");
+			    $user = new User($_POST["nombreusuario"],$_POST["nombre"],$_POST["contraseña"],$_POST["correo"],"entrenador");
 
 			     	try{
 			     		if (!$userMapper->usernameExists($user->getUsername()))
@@ -105,11 +105,12 @@ public static function register()
 
 	public function edit() {
 			$usuarioMapper = new UserMapper();
-			$nombre = $_POST["nombreusuario"];
+			$nombreusuario = $_POST["nombreusuario"];
+			$nombre = $_POST["nombre"];
 			$nombreadmin = $_POST["nombreAdmin"];
 			$nombreAntiguo = $_POST["nombreAntiguo"];
 			$contraseña = $_POST["contraseña"];
-			$email = $_POST["email"];
+			$correo = $_POST["correo"];
 
 		    if (isset($_GET['lang'])) {
 				$lang = $_GET['lang'];
@@ -117,7 +118,7 @@ public static function register()
 				$lang = "es";
 			}
 
-			$user = new User($nombreusuario,$contraseña,$email,"entrenador");
+			$user = new User($nombreusuario,$nombre,$contraseña,$correo,"entrenador");
 
 			$userMapper->update($user,$nombreAntiguo);
 			header("Location: ../view/adminEntrenadores.php?lang=$lang");
@@ -126,7 +127,7 @@ public static function register()
 
 	public function delete() {
 		$nombreusuario = $_POST["nombreusuario"];
-		//$usuario = $this->usuarioMapper->find($nombreusuario);
+		//$nombreusuario = $this->usuarioMapper->find($nombreusuario);
 		if (isset($_GET['lang'])) {
 			$lang = $_GET['lang'];
 		} else {
@@ -134,7 +135,7 @@ public static function register()
 		}
 
 		$userMapper = new UserMapper();
-		$userMapper->delete($nombreusuario);
+		$userMapper->delete($user);
 
 	    header("Location: ../view/adminEntrenadores.php?lang=$lang");
 	}

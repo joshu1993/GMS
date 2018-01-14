@@ -20,25 +20,26 @@ USE `gymGMS` ;
 
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`Usuario` 
+-- Table `gimnasio`.`Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Usuario` (
   `nombreusuario` VARCHAR(45) NOT NULL,
+  `nombre` VARCHAR(45) NULL,
   `contraseña` VARCHAR(45) NULL,
   `correo` VARCHAR(45) NULL,
   `tipousuario` VARCHAR(15) NULL,
   PRIMARY KEY (`nombreusuario`))
 ENGINE = InnoDB;
 
-INSERT INTO `Usuario` (`nombreusuario`, `contraseña`, `correo`, `tipousuario`) VALUES
-( 'domingo', 'domingo1', 'domingo@gmail.com', 'admin'),
-( 'javier', 'javier1', 'javier@gmail.com', 'admin'),
-( 'joshua', 'joshua1', 'joshua@gmail.com', 'admin'),
-( 'jose', 'jose1', 'jose@gmail.com', 'admin');
+INSERT INTO `Usuario` (`nombreusuario`, `nombre`, `contraseña`, `correo`, `tipousuario`) VALUES
+( 'domingo', 'domingo rivera', 'domingo1', 'domingo@gmail.com', 'admin'),
+( 'javier', 'domingo rivera', 'javier1', 'javier@gmail.com', 'admin'),
+( 'joshua', 'domingo rivera', 'joshua1', 'joshua@gmail.com', 'admin'),
+( 'jose', 'domingo rivera', 'jose1', 'jose@gmail.com', 'admin');
 
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`Sesion` 
+-- Table `gimnasio`.`Sesion`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Sesion` (
   `idsesion` INT NOT NULL AUTO_INCREMENT,
@@ -57,7 +58,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`Actividad`  
+-- Table `gimnasio`.`Actividad`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Actividad` (
   `idactividad` INT NOT NULL AUTO_INCREMENT,
@@ -67,11 +68,27 @@ CREATE TABLE IF NOT EXISTS `gymGMS`.`Actividad` (
   `capacidad` INT NULL,
   `tipoActividad` VARCHAR(45) NOT NULL,
    PRIMARY KEY (`idactividad`))
- 
+
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`Reserva`  
+-- Table `gimnasio`.`Deportista`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gymGMS`.`Deportista` (
+  `nombreusuario` VARCHAR(20) NOT NULL,
+  `nombre` VARCHAR(45) NULL,
+  `Usuario_nombreusuario` VARCHAR(20) NOT NULL,
+  `tipoDep` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`nombreusuario`),
+  CONSTRAINT `fk_Deportista_Usuario1`
+    FOREIGN KEY (`Usuario_nombreusuario`)
+    REFERENCES `gymGMS`.`Usuario` (`nombretabla`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `gimnasio`.`Reserva`
 -- -----------------------------------------------------
 
 
@@ -98,7 +115,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`TablaEjercicios` 
+-- Table `gimnasio`.`TablaEjercicios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`TablaEjercicios` (
   `idtabla` INT NOT NULL AUTO_INCREMENT,
@@ -108,7 +125,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`Ejercicio` 
+-- Table `gimnasio`.`Ejercicio`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Ejercicio` (
   `idejercicio` INT NOT NULL AUTO_INCREMENT,

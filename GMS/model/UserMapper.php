@@ -1,101 +1,77 @@
-<?php
-require_once(__DIR__."/../core/ConnectionBD.php");
-require_once(__DIR__."/../model/User.php");
+	<?php
+	require_once(__DIR__."/../core/ConnectionBD.php");
 
-class UserMapper {
+	class UserMapper {
 
+		public static function find($nombreusuario){
+			global $connect;
+			$consulta = "SELECT * FROM Usuario WHERE nombreusuario='". $nombreusuario ."'";
+			$resultado = $connect->query($consulta);
 
-	private $db;
+			return mysqli_fetch_assoc($resultado);
+		}
 
-	
+		public function findByUsername($nombreusuario){
+			global $connect;
+			$consulta = "SELECT * FROM Usuario WHERE nombreusuario='". $nombreusuario ."'";
+			$resultado = $connect->query($consulta);
+			$current = mysqli_fetch_assoc($resultado);
+			$entrenador = new Usuario($current["nombreusuario"],$current["nombre"],$current["contraseña"],$current["correo"],$current["tipousuario"]);
+			return $entrenador;
+		}
 
-	public function findAll() {
-			$stmt = $this->db->query("SELECT * FROM usuario");
-			
+		function listarEntrenadores (){
+			global $connect;
+			$consulta ="SELECT * FROM Usuario WHERE tipousuario = 'entrenador' ORDER BY nombre";
+			$resultado = $connect->query($consulta);
+			$listaEntrenadores = array();
+			while ($actual = mysqli_fetch_assoc($resultado)) {
 
-			$users = array();
+				$entrenador = new Usuario($current["nombreusuario"],$current["nombre"],$current["contraseña"],$current["correo"],$current["tipousuario"]);
+				array_push($listaEntrenadores, $entrenador);
+			}
+			return $listaEntrenadores;
 
-			foreach ($users_db as $user) {
-				array_push($users, new User($user["nombreusuario"],$user["contraseña"], $user["correo"], $user["tipousuario"]));
+		}
+
+		public function save(User $user) {
+			global $connect;
+			$consulta= " INSERT INTO Usuario (nombreusuario, nombre, Usuario_nombreusuario, contraseña, correo, tipousuario) VALUES ('". $usuario->getUsername() ."',
+			'". $_SESSION["nombreusuario"] ."', '". $usuario->getName() ."', '". $usuario->getPassword() ."' ,'". $usuario->getMail() ."' ,'". $usuario->getUserType() ."')";
+			$connect->query($consulta);	}
+
+			public function update($user, $nombreAntiguo) {
+				global $connect;
+				$consulta= "UPDATE Usuario SET nombreusuario='". $usuario->getUsername() ."' ,nombretabla='". $usuario->getName() ."', contraseña='". $usuario->getPassword() ."', correo='". $usuario->getMail(). "' WHERE Dni='". $nombreAntiguo ."'";
+				$connect->query($consulta);
 			}
 
-			return $users;
-		}
-
-		public function findByName($nombreusuario){
-		$stmt = $this->db->prepare("SELECT * FROM usuario WHERE nombreusuario=?");
-		$stmt->execute(array($nombreusuario));
-		$user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if($user != null) {
-			return new User(
-			$user["nombreusuario"],
-			$user["contraseña"],
-			$user["correo"],
-			$user["tipousuario"]);
-		} else {
-			return NULL;
-		}
-	}
-
-
-	public function save(User $user) {
-		$stmt = $this->db->prepare("INSERT INTO usuario (nombreusuario, contraseña, correo, tipousuario) values (?,?,?,?)");
-		$stmt->execute(array($user->getUsername(), $user->getPassword(), $user->getMail(), $user->getUserType()));
-		//return $this->db->lastInsertId();
-	}
-
-	public function update(User $user) {
-				$stmt = $this->db->prepare("UPDATE usuario set contraseña=?, correo=?, tipousuario=? where nombreusuario=?");
-				$stmt->execute(array($user->getPassword(),$user->getMail(),$user->getUserType(), $user->getUsername()));
+			public function delete($nombreusuario) {
+				global $connect;
+	    $consulta = "DELETE FROM Usuario WHERE nombreusuario='". $nombreusuario ."'" ;
+	    $connect->query($consulta);
 			}
 
-	public function delete(User $user) {
-			$stmt = $this->db->prepare("DELETE from usuario WHERE nombreusuario=?");
-			$stmt->execute(array($user->getUsername()));
+			public function usernameExists($nombreusuario)
+				{
+					global $connect;
+					$consulta = "SELECT * FROM Usuario WHERE nombreusuario='". $nombreusuario ."'";
+					$resultado = $connect->query($consulta);
+			 		$filas = mysqli_num_rows($resultado);
+			 		if($filas > 0)
+			  			return true;
+				}
+
+				public function isValidUser($nombreusuario, $contraseña)
+				{
+					global $connect;
+					$consulta = "SELECT COUNT(nombreusuario) FROM Usuario WHERE nombreusuario='". $nombreusuario ."' , Usuario_nombreusuario='". $contraseña ."'";
+					$connect->query($consulta);
+
+					if($connect->fetchColumn() > 0)
+						return true;
+
+				}
+
+
 		}
-
-	public function usernameExists($nombreusuario) {
-		$stmt = $this->db->prepare("SELECT count(nombreusuario) FROM usuario where nombreusuario=?");
-		$stmt->execute(array($nombreusuario));
-
-		if ($stmt->fetchColumn() > 0) {
-			return true;
-		}
-	}
-
-	public function isValidUser($nombreusuario, $contraseña) {
-		$stmt = $this->db->prepare("SELECT count(nombreusuario) FROM usuario where nombreusuario=? and contraseña=?");
-		$stmt->execute(array($nombreusuario, $contraseña));
-
-		if ($stmt->fetchColumn() > 0) {
-			return true;
-		}
-	}
-
-	public function esAdmin($nombreusuario) {
-		$tipo="admin";
-		$stmt = $this->db->prepare("SELECT count(nombreusuario) FROM usuario where nombreusuario=? and tipousuario=?");
-		$stmt->execute(array($nombreusuario, $tipo));
-
-		if ($stmt->fetchColumn() > 0) {
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	public function exists($usuarioname){
-		$stmt = $this->db->prepare("SELECT * FROM usuario WHERE nombreusuario=?");
-		$stmt->execute(array($usuarioname));
-		$user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if($user != null) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-
-}

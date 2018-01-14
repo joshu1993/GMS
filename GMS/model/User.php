@@ -5,8 +5,9 @@ require_once(__DIR__."/../core/ValidationException.php");
 
 class User {
 
-
 	private $nombreusuario;
+
+	private $nombre;
 
 	private $contraseña;
 
@@ -16,16 +17,20 @@ class User {
 
 
 
-	public function __construct($nombreusuario=NULL, $contraseña=NULL, $correo=NULL, $tipousuario=NULL) {
+	public function __construct($nombreusuario=NULL, $nombre=NULL, $contraseña=NULL, $correo=NULL, $tipousuario=NULL) {
 		$this->nombreusuario = $nombreusuario;
+		$this->nombre = $nombre;
 		$this->contraseña = $contraseña;
 		$this->correo = $correo;
 		$this->tipousuario = $tipousuario;
 	}
 
-
 	public function getUsername() {
 		return $this->nombreusuario;
+	}
+
+	public function getName(){
+		return $this->nombre;
 	}
 
 	public function getPassword() {
@@ -44,6 +49,10 @@ class User {
 		$this->nombreusuario = $nombreusuario;
 	}
 
+	public function setName(){
+		$this->nombre = $nombre;
+	}
+
 	public function setPassword($contraseña) {
 		$this->contraseña = $contraseña;
 	}
@@ -56,12 +65,22 @@ class User {
 		$this->tipousuario = $tipousuario;
 	}
 
+	public static function getbyUsername($nombreusuario){
+			  $mapper = UserMapper::find($nombreusuario);
 
+			  return new User($mapper["nombreusuario"],$mapper["nombre"],$mapper["contraseña"],$mapper["correo"],$mapper["tipousuario"]);
+
+		  }
+/*
 	public function checkIsValidForRegister() {
 		$errors = array();
 		if (strlen($this->nombreusuario) < 5) {
 			$errors["nombreusuario"] = "username is not valid";
 
+		}
+
+		if (strlen($this->nombre) < 5) {
+			$errors["nombre"] = "name is not valid";
 		}
 		if (strlen($this->contraseña) < 5) {
 			$errors["contraseña"] = "password is not valid";
@@ -92,5 +111,6 @@ class User {
 			throw new ValidationException($errors, "username is not valid");
 		}
 	}
+	*/
 
 }
