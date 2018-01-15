@@ -1,7 +1,7 @@
 <?php
 require_once("../core/connectionBD.php");
 require_once("../controller/ActividadController.php");
-require_once("../controller/UsersController.php");
+require_once("../controller/UsuarioController.php");
 
 
 if(!isset($_SESSION)) session_start();
@@ -39,16 +39,18 @@ include ("default.php");
 	<?= i18n("Horario") ?>:<input type="text" name="horario" value="<? =$actividad->gethorario() ?>">
     <input type="text" placeholder = "YYYY-MM-DD HH:MM:SS" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}" name="horario" class="input" required="true"/>
 	<?= isset($errors["horario"])?i18n($errors["horario"]):"" ?><br>
-
+	
 	<?= i18n("capacidad") ?>: <input type="text" name="capacidad"
 	value="<?= $actividad->getcapacidad() ?>">
 	<?= isset($errors["capacidad"])?i18n($errors["capacidad"]):"" ?><br>
-
+	
 	<?= i18n("tipoActividad") ?>: <input type="text" name="tipoActividad"
 	value="<?= $actividad->gettipoActividad() ?>">
 	<?= isset($errors["tipoActividad"])?i18n($errors["tipoActividad"]):"" ?><br>
-
+	
 
 </div>
 	<input type="submit" name="submit" value="crear">
 </form>
+
+
