@@ -6,91 +6,75 @@ require_once(__DIR__."/../core/ValidationException.php");
 class Ejercicio {
 
 
-	private $id;
+	private $idejercicio;
 
-	private $title;
+	private $nombreejercicio;
 
+	private $usuario_nombreusuario;
 
-	private $content;
-
-	private $repeticiones;
-
-	private $series;
+	private $descripcionejercicio;
 
 
-	public function __construct($id=NULL, $title=NULL, $content=NULL, $repeticiones=NULL, $series=NULL) {
-		$this->id = $id;
-		$this->title = $title;
-		$this->content = $content;
-		$this->repeticiones = $repeticiones;
-		$this->series = $series;
+
+	function __construct($nombreejercicio, $usuario_nombreusuario, $descripcionejercicio, $idEjercicio = null)
+	{
+		$this ->idejercicio = $idejercicio;
+		$this ->nombreejercicio = $nombreejercicio;
+		$this ->usuario_nombreusuario = $usuario_nombreusuario;
+		$this ->descripcionejercicio = $descripcionejercicio;
+	
 
 	}
 
-
-	public function getId() {
-		return $this->id;
+	public function getidejercicio() {
+		return $this->idejercicio;
 	}
 
 
-	public function getTitle() {
-		return $this->title;
+	public function getnombreejercicio() {
+		return $this->nombreejercicio;
 	}
 
 
-	public function setTitle($title) {
-		$this->title = $title;
+	public function getusuarionombreusuario() {
+		return $this->usuario_nombreusuario;
 	}
 
-
-	public function getContent() {
-		return $this->content;
+	public function getdescripcionejercicio (){
+		return $this ->descripcionejercicio;
 	}
 
-
-	public function setContent($content) {
-		$this->content = $content;
+  	public function setdescripcionejercicio ($descripcionejercicio){
+		$this ->descripcionejercicio = $descripcionejercicio;
 	}
-
-
-	public function getRepeticiones() {
-		return $this->repeticiones;
-	}
-
-
-	public function setRepeticiones($repeticiones) {
-		$this->repeticiones = $repeticiones;
-	}
-
-
-	public function getSeries() {
-		return $this->series;
-	}
-
-	public function setSeries($series) {
-		$this->series = $series;
-	}
+	
 
 
 	public function checkIsValidForCreate() {
 		$errors = array();
-		if (strlen(trim($this->title)) == 0 ) {
-			$errors["title"] = "title is mandatory";
-		}
-		if (strlen(trim($this->content)) == 0 ) {
-			$errors["content"] = "content is mandatory";
-		}
 
-		if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "exercise is not valid");
-		}
-	}
+      if (strlen(trim($this->idejercicio)) == 0 ) {
+				$errors["idejercicio"] = "El ID no es válido";
+      }
+
+      if (strlen(trim($this->nombreejercicio)) == 0 ) {
+				$errors["nombreejercicio"] = "El Ejercicio debe tener nombre.";
+      }
+
+      if (strlen(trim($this->descripcionejercicio)) == 0 ) {
+				$errors["descripcionejercicio"] = "El Ejercicio debe tener una descripcion.";
+      }
+
+      if (sizeof($errors) > 0){
+				throw new ValidationException($errors, "Existen errores. No se puede crear el ejercicio.");
+      }
+  }
 
 
 	public function checkIsValidForUpdate() {
 		$errors = array();
 
-		if (!isset($this->id)) {
+		if (strlen(trim($this->idEjercicio)) == 0 ) {
 			$errors["idejercicio"] = "id is mandatory";
 		}
 

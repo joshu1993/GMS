@@ -1,10 +1,10 @@
 <?php
-require_once("../controller/ActividadesController.php");
-require_once("../controller/UsersController.php");
+require_once("../controller/ActividadController.php");
+require_once("../controller/UsuarioController.php");
 
 if(!isset($_SESSION)) session_start();
-$ucontroler = new UsersController();
-$usuarioActual =  $ucontroler->getcurrentUser($_SESSION['nombreusuario']);
+$ucontroler = new controlador_Usuario();
+$usuarioActual =  $ucontroler->getUsuarioActual($_SESSION['nombreusuario']);
 if($_SESSION['tipousuario'] != "administrador" && $_SESSION['tipousuario'] != "entrenador" && $_SESSION['tipousuario'] != "deportista"){
 	header("Location: error.php");
 	exit();

@@ -24,41 +24,18 @@ USE `gymGMS` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Usuario` (
   `nombreusuario` VARCHAR(45) NOT NULL,
-  `Usuario_nombreusuario` VARCHAR(45) NULL,
-  `nombre` VARCHAR(45) NULL,
   `contraseña` VARCHAR(45) NULL,
   `correo` VARCHAR(45) NULL,
   `tipousuario` VARCHAR(15) NULL,
-  PRIMARY KEY (`nombreusuario`),
-   INDEX `fk_Usuario_Usuario1_idx` (`Usuario_nombreusuario` ASC),
-  CONSTRAINT `fk_Usuario_Usuario1`
-    FOREIGN KEY (`Usuario_nombreusuario`)
-    REFERENCES `gymGMS`.`Usuario` (`nombreusuario`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-INSERT INTO `Usuario` (`nombreusuario`, `Usuario_nombreusuario`, `nombre`, `contraseña`, `correo`, `tipousuario`) VALUES
-( 'domingo24',NULL, 'Doming', 'domingo1', 'domingo@gmail.com', 'admin'),
-( 'joshua4','domingo24','Joshua', 'joshua1', 'joshua@gmail.com', 'entrenador'),
-( 'jose2','domingo24','Jose', 'jose1', 'jose@gmail.com', 'deportista');
-
-
-
--- -----------------------------------------------------
--- Table `gimnasio`.`Deportista` 
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gymGMS`.`Deportista` (
-  `nombreusuario` VARCHAR(45) NOT NULL,
-  `Usuario_nombreusuario` VARCHAR(45) NULL,
-  `tipodeportista` VARCHAR(15) NULL,
   PRIMARY KEY (`nombreusuario`))
 ENGINE = InnoDB;
 
-INSERT INTO `Deportista` (`nombreusuario`, `Usuario_nombreusuario`, `tipodeportista`) VALUES
-( 'pepe', 'Domingo24', 'tdu'),
-( 'manuela','Domingo24','tdu'),
-( 'ana','Domingo24','PEF');
+INSERT INTO `Usuario` (`nombreusuario`, `contraseña`, `correo`, `tipousuario`) VALUES
+( 'domingo', 'domingo1', 'domingo@gmail.com', 'admin'),
+( 'javier', 'javier1', 'javier@gmail.com', 'admin'),
+( 'joshua', 'joshua1', 'joshua@gmail.com', 'admin'),
+( 'jose', 'jose1', 'jose@gmail.com', 'admin');
+
 
 -- -----------------------------------------------------
 -- Table `gimnasio`.`Sesion` 
@@ -126,8 +103,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `gymGMS`.`TablaEjercicios` (
   `idtabla` INT NOT NULL AUTO_INCREMENT,
   `nombretabla` VARCHAR(45) NULL,
-  `numerorepeticiones` INT NULL,
-  `numeroseries` INT NULL,
   PRIMARY KEY (`idtabla`))
 ENGINE = InnoDB;
 
@@ -137,16 +112,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Ejercicio` (
   `idejercicio` INT NOT NULL AUTO_INCREMENT,
-  `Usuario_nombreusuario` VARCHAR(10) NOT NULL,
   `nombreejercicio` VARCHAR(45) NULL,
   `descripcionejercicio` VARCHAR(1000) NULL,
-  PRIMARY KEY (`idejercicio`, `Usuario_nombreusuario`),
-  INDEX `fk_Ejercicio_Usuario1_idx` (`Usuario_nombreusuario` ASC),
-  CONSTRAINT `fk_Ejercicio_Usuario1`
-    FOREIGN KEY (`Usuario_nombreusuario`)
-    REFERENCES `gymGMS`.`Usuario` (`nombreusuario`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+  `numerorepeticiones` INT NULL,
+  `numeroseries` INT NULL,
+  PRIMARY KEY (`idejercicio`))
 ENGINE = InnoDB;
 
 
@@ -216,38 +186,38 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
-INSERT INTO `ejercicio` (`idejercicio`, `Usuario_nombreusuario`,`nombreejercicio`, `descripcionejercicio`) VALUES
-( 1,'domingo24','Press Inclinado con barra', 'Tumbados boca arriba sobre un banco que tenga una inclinación entre 10 y 40 grados, sujetad una barra sobre la parte superior del pecho, empleando un agarre equivalente al del press de banca con barra.
+INSERT INTO `ejercicio` (`nombreejercicio`, `descripcionejercicio`, `numerorepeticiones`, `numeroseries`) VALUES
+( 'Press Inclinado con barra', 'Tumbados boca arriba sobre un banco que tenga una inclinación entre 10 y 40 grados, sujetad una barra sobre la parte superior del pecho, empleando un agarre equivalente al del press de banca con barra.
 
 Se bajan luego los brazos hasta acercar el peso a la parte media alta del pectoral, y vuelven a estirarse hasta casi extenderlos por completo, para repetir después las veces necesarias.
 
 Como en todo ejercicio de pectoral sobre un banco, los glúteos y la espalda nunca se despegarán del asiento.
 
-MÚSCULOS IMPLICADOS: Pectoral mayor, con incidencia en las fibras superiores, deltoide anterior, serrato y tríceps.'),
-(2, 'domingo24', 'Fondos en paralelas con agarre abierto', 'Con las manos apoyadas sobre las paralelas, y manteniendo un agarre neutro, estiraremos el cuerpo para bajar luego hasta que los brazos queden paralelos al piso, sin dejar caer el cuerpo más ya que existe el riesgo de lesión por exceso de estiramiento.
+MÚSCULOS IMPLICADOS: Pectoral mayor, con incidencia en las fibras superiores, deltoide anterior, serrato y tríceps.', '12', '3'),
+( 'Fondos en paralelas con agarre abierto', 'Con las manos apoyadas sobre las paralelas, y manteniendo un agarre neutro, estiraremos el cuerpo para bajar luego hasta que los brazos queden paralelos al piso, sin dejar caer el cuerpo más ya que existe el riesgo de lesión por exceso de estiramiento.
 
 Volveremos al punto de partida, apretando los pectorales, sin estirar del todo los brazos, para pasar a la próxima repetición.
 
-MÚSCULOS IMPLICADOS: Pectoral mayor con incidencia en fibras inferiores. Deltoide anterior, serrato y tríceps.'),
-( 3,'domingo24','Press de banca con barra en banco plano', 'Para realizar el press de banca con barra en banco plano debes empezar tumbado boca arriba en un banco plano con una barra sobre el pecho, agarre de las manos más separadas que la anchura de los hombros, brazos en perpendicular al tronco. Se hace una extensión de los codos acompañada de una ligera elevación del hombro.
+MÚSCULOS IMPLICADOS: Pectoral mayor con incidencia en fibras inferiores. Deltoide anterior, serrato y tríceps.', '8', '3'),
+( 'Press de banca con barra en banco plano', 'Para realizar el press de banca con barra en banco plano debes empezar tumbado boca arriba en un banco plano con una barra sobre el pecho, agarre de las manos más separadas que la anchura de los hombros, brazos en perpendicular al tronco. Se hace una extensión de los codos acompañada de una ligera elevación del hombro.
 
 La apertura de las manos puede variar hacia afuera. Mantendremos la espalda apoyada al banco, y evitaremos todo movimiento lateral.
 
-Músculos implicados: Pectoral mayor, fibras anteriores del Deltoides, Serrato mayor y Tríceps.'),
-( 4, 'domingo24','Remo con barra', 'De pie, con el tronco casi en ángulo de 90 grados respecto al suelo, las rodillas ligeramente flexionadas y sujetando con agarre prono y manos separadas a la anchura de los hombros una barra apoyada en el piso.
+Músculos implicados: Pectoral mayor, fibras anteriores del Deltoides, Serrato mayor y Tríceps.', '5', '5'),
+( 'Remo con barra', 'De pie, con el tronco casi en ángulo de 90 grados respecto al suelo, las rodillas ligeramente flexionadas y sujetando con agarre prono y manos separadas a la anchura de los hombros una barra apoyada en el piso.
 
 Desde allí, se sube el peso hasta acercarlo a la cintura, echando codos y hombros hacia atrás para acercar las escápulas, a la vez que se eleva ligeramente el tronco, evitando los impulsos y el arqueo de la espalda.
 
 Bajad controladamente y repetid las veces prescritas.
 
-Músculos implicados: Dorsal, con incidencia en las zonas baja y media, redondo mayor, deltoide posterior, zona lumbar y de la cadera.');
+Músculos implicados: Dorsal, con incidencia en las zonas baja y media, redondo mayor, deltoide posterior, zona lumbar y de la cadera.', '12', '3');
 
 
-INSERT INTO `tablaejercicios` (`idtabla`, `nombretabla`, `numerorepeticiones`,`numeroseries`) VALUES
-( '10', 'Lunes', '8','4'),
-( '11', 'Martes','10','3'),
-( '12', 'Jueves','6','5'),
-( '13', 'Viernes','15','2');
+INSERT INTO `tablaejercicios` (`idtabla`, `nombretabla`) VALUES
+( '10', 'Lunes'),
+( '11', 'Martes'),
+( '12', 'Jueves'),
+( '13', 'Viernes');
 
 INSERT INTO `ejercicio_pertenece_tablaejercicios` (`Ejercicio_idejercicio`, `TablaEjercicios_idtabla`) VALUES
 ( '1', '10'),

@@ -8,89 +8,64 @@ require_once(__DIR__."/../model/Ejercicio.php");
 
 class EjercicioMapper {
 
+public function isValidUser($nombreusuario, $contraseña) {
+    $stmt = $this->db->prepare("SELECT count(nombreusuario) FROM users where nombreusuario=? and contraseña=?");
+    $stmt->execute(array($nombreusuario, $contraseña));
 
+    if ($stmt->fetchColumn() > 0) {
+      return true;
+    }
+  }
 
-/*
-	
-	public function findAll() {
-		$stmt = $this->db->query("SELECT * FROM ejercicio");
-	
+  public function registrarEjercicio($ejercicio) {
+    global $connect;
+	  
+	    $consulta= " INSERT INTO Ejercicio (Usuario_nombreusuario, nombreejercicio, descripcionejercicio)
+      VALUES ('". $ejercicio->getusuarionombreusuario() ."','". $ejercicio->getnombreejercicio() ."', '". $ejercicio->getdescripcionejercicio() ."')";
+	    $connect->query($consulta);
 
-		$ejercicios = array();
-
-		foreach ($ejercicios_db as $ejercicio) {
-			array_push($ejercicios, new Ejercicio($ejercicio["idejercicio"],$ejercicio["nombreejercicio"], $ejercicio["descripcionejercicio"], $ejercicio["numerorepeticiones"], $ejercicio["numeroseries"]));
-		}
-
-		return $ejercicios;
 	}
 
+  
 
-	public function findById($ejercicioid){
-		$stmt = $this->db->prepare("SELECT * FROM ejercicio WHERE idejercicio=?");
-		$stmt->execute(array($ejercicioid));
-		$ejercicio = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if($ejercicio != null) {
-			return new Ejercicio(
-			$ejercicio["idejercicio"],
-			$ejercicio["nombreejercicio"],
-			$ejercicio["descripcionejercicio"],
-			$ejercicio["numerorepeticiones"],
-			$ejercicio["numeroseries"]);
-		} else {
-			return NULL;
+  public function listarEjercicios() {
+    global $connect;
+		$consulta = "SELECT * FROM Ejercicio";
+    $resultado = mysqli_query($connect, $consulta) or die (mysqli_error($connect));
+		$listaEjercicios = array();
+		while ($current = mysqli_fetch_assoc($resultado)) {
+        $ejercicio = new Ejercicio($current["nombreejercicio"],$current["Usuario_nombreusuario"],$current["descripcionejercicio"], $current["idejercicio"]);
+				array_push($listaEjercicios, $ejercicio);
 		}
+		return $listaEjercicios;
 	}
 
-	public function findByName($ejercicioName){
-		$stmt = $this->db->prepare("SELECT * FROM ejercicio WHERE nombreejercicio=?");
-		$stmt->execute(array($ejercicioName));
-		$ejercicio = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if($ejercicio != null) {
-			return new Ejercicio(
-			$ejercicio["idejercicio"],
-			$ejercicio["nombreejercicio"],
-			$ejercicio["descripcionejercicio"],
-			$ejercicio["numerorepeticiones"],
-			$ejercicio["numeroseries"]);
-		} else {
-			return NULL;
-		}
+  public function modificarEjercicio($ejercicio, $idejercicio){
+		global $connect;
+		$consulta= "UPDATE Ejercicio set usuario_nombreusuario='".$ejercicio->getusuarionombreusuario()."',nombreejercicio='".$ejercicio->getnombreejercicio()."',
+		descripcionejercicio='".$ejercicio->getdescripcionejercicio()."'
+    WHERE idejercicio='".$idejercicio."'";
+		$connect->query($consulta);
+		
 	}
 
-	public function exists($ejercicioname){
-		$stmt = $this->db->prepare("SELECT * FROM ejercicio WHERE nombreejercicio=?");
-		$stmt->execute(array($ejercicioname));
-		$ejer = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if($ejer != null) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+  public function eliminarEjercicio($ejercicio) {
+    global $connect;
+    $consulta = "DELETE FROM Ejercicio WHERE idejercicio ='".$ejercicio->getidejercicio()."' ";
+    $connect->query($consulta);
+   /* $consulta = "DELETE FROM Entrenamiento_has_Ejercicio WHERE idEjercicio ='".$ejercicio->getIdEjercicio()."' ";
+    $connect->query($consulta);
+   */
+  }
 
 
-
-
-
-		public function save(Ejercicio $ejercicio) {
-			$stmt = $this->db->prepare("INSERT INTO ejercicio(nombreejercicio, descripcionejercicio, numerorepeticiones, numeroseries) values (?,?,?,?)");
-			$stmt->execute(array($ejercicio->getTitle(), $ejercicio->getContent(), $ejercicio->getRepeticiones(),$ejercicio->getSeries()));
-			return $this->db->lastInsertId();
-		}
-
-
-		public function update(Ejercicio $ejercicio) {
-			$stmt = $this->db->prepare("UPDATE ejercicio set nombreejercicio=?, descripcionejercicio=?, numerorepeticiones=?, numeroseries=? where idejercicio=?");
-			$stmt->execute(array($ejercicio->getTitle(), $ejercicio->getContent(),$ejercicio->getRepeticiones(),$ejercicio->getSeries(), $ejercicio->getId()));
-		}
-
-		public function delete(Ejercicio $ejercicio) {
-			$stmt = $this->db->prepare("DELETE from ejercicio WHERE idejercicio=?");
-			$stmt->execute(array($ejercicio->getId()));
-		}
-*/
-	}
+  public function buscarId($id){
+    global $connect;
+		$consulta = "SELECT * FROM Ejercicio WHERE idejercicio ='". $id ."'";
+		$resultado = $connect->query($consulta);
+		$current = mysqli_fetch_assoc($resultado);
+		$ejercicio = new Ejercicio($current["nombreejercicio"],$current["Usuario_nombreusuario"],$current["descripcionejercicio"], $current["idejercicio"]);
+		return $ejercicio;
+  }
+}
+?>
