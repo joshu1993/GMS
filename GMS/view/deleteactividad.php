@@ -1,5 +1,5 @@
 <?php
-require_once("../resources/ConnectionBD.php");
+require_once("../core/ConnectionBD.php");
 require_once("../controller/UsersController.php");
 require_once("../controller/ActividadesController.php");
 
@@ -29,15 +29,15 @@ if (isset($_GET['lang'])) {
 
 <?php
 			include("default.php");
-			
+
 				 $actividad = $acontroler->getActividad($id);
 				}
 			?>
 
 
 	  <strong>¿<?php echo __('¿Está seguro que quiere eliminar esta actividad?', $lang);?></strong>
-       
-          <form action="../controller/controlador.php?lang=<?php echo $lang; ?>&controlador=controlador_Actividad&amp;accion=eliminarActividad" method="post" >
+
+          <form action="../controller/controller.php?lang=<?php echo $lang; ?>&controller=ActividadesController&amp;accion=eliminarActividad" method="post" >
 	<div class='form'>
 			  <label><?php echo __('Nombre',$lang);?>: <?php echo $actividad->getombreActividad(); ?></label>
                <br/>
@@ -49,8 +49,8 @@ if (isset($_GET['lang'])) {
               <br/>
               <label><?php echo __('Tipo de actividad',$lang);?>: <?php echo $actividad->gettipoActividad(); ?></label>
               <br/>
-            
+
 	</div>
-	
+
 		<input type="submit" name="submit" value="<?= i18n("EliminarActividad actividad") ?>">
 	</form>

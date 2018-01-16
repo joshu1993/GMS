@@ -66,7 +66,7 @@ if (isset($_GET['lang'])) {
 		<?php
 			include("navbar.php");
 			include("wrapper.php");
-			$acontroler = new controlador_Actividad();
+			$acontroler = new ActividadesController();
 
 			if (isset($_GET['eliminar'])){
 				$acontroler->eliminarActividad($_GET['eliminar']);
@@ -110,7 +110,7 @@ if (isset($_GET['lang'])) {
 							<p><?php echo __('Horario',$lang);?>:<?php echo $actividad->gethorario(); ?></p>
 							<p><?php echo __('Tipo de actividad',$lang);?>:<?php echo $actividad->gettipoActividad(); ?></p>
 							<p><?php echo __('Capacidad',$lang);?>:<?php echo $actividad->getcapacidad(); ?></p>
-							
+
 						</div>
 						<?php if($_SESSION['tipousuario'] == "administrador" || $_SESSION['tipousuario'] == "entrenador"){?>
 						<div class="opciones_bloque">

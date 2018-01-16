@@ -76,7 +76,7 @@ if (isset($_GET['lang'])) {
                         <div class="col-lg-12">
                             <div class="text-center"><h3><b><?php echo __('Entrar',$lang); ?></b></h3></div>
                                 <div class="form-group">
-                                  <form action="../controller/controlador.php?lang=<?php echo $lang; ?>&controlador=controlador_Usuario&amp;accion=login" method="post">
+                                  <form action="../controller/controller.php?lang=<?php echo $lang; ?>&controller=UsersController&amp;accion=login" method="post">
                                     <label for="nombreusuario">nombreusuario</label>
                                     <input type="text" name="nombreusuario" id="nombreusuario" tabindex="1" class="form-control" placeholder="<?php echo __('nombre del usuario',$lang); ?>" value="" autocomplete="off">
                                     <label for="password"><?php echo __('Contraseña',$lang); ?></label>
@@ -139,7 +139,7 @@ if (isset($_GET['lang'])) {
 							<p> <?php echo __('Horario',$lang); ?> : <?php echo $actividad->gethorario(); ?></p>
 							<p> <?php echo __('Tipo de actividad',$lang); ?> : <?php echo $actividad->gettipoActividad(); ?></p>
 							<p> <?php echo __('Capacidad',$lang); ?>: <?php echo $actividad->getcapacidad(); ?></p>
-							
+
 						</div>
 
 					</div>
