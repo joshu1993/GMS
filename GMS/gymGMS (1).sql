@@ -20,7 +20,7 @@ USE `gymGMS` ;
 
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`Usuario` 
+-- Table `gimnasio`.`Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Usuario` (
   `nombreusuario` VARCHAR(45) NOT NULL,
@@ -46,7 +46,7 @@ INSERT INTO `Usuario` (`nombreusuario`, `Usuario_nombreusuario`, `nombre`, `cont
 
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`Deportista` 
+-- Table `gimnasio`.`Deportista`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Deportista` (
   `nombreusuario` VARCHAR(45) NOT NULL,
@@ -61,7 +61,7 @@ INSERT INTO `Deportista` (`nombreusuario`, `Usuario_nombreusuario`, `tipodeporti
 ( 'ana','Domingo24','PEF');
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`Sesion` 
+-- Table `gimnasio`.`Sesion`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Sesion` (
   `idsesion` INT NOT NULL AUTO_INCREMENT,
@@ -80,7 +80,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`Actividad`  
+-- Table `gimnasio`.`Actividad`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Actividad` (
   `idactividad` INT NOT NULL AUTO_INCREMENT,
@@ -90,11 +90,11 @@ CREATE TABLE IF NOT EXISTS `gymGMS`.`Actividad` (
   `capacidad` INT NULL,
   `tipoActividad` VARCHAR(45) NOT NULL,
    PRIMARY KEY (`idactividad`))
- 
+
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`Reserva`  
+-- Table `gimnasio`.`Reserva`
 -- -----------------------------------------------------
 
 
@@ -121,7 +121,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`TablaEjercicios` 
+-- Table `gimnasio`.`TablaEjercicios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`TablaEjercicios` (
   `idtabla` INT NOT NULL AUTO_INCREMENT,
@@ -133,7 +133,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gimnasio`.`Ejercicio` 
+-- Table `gimnasio`.`Ejercicio`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Ejercicio` (
   `idejercicio` INT NOT NULL AUTO_INCREMENT,
@@ -155,18 +155,40 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gymGMS`.`Notificacion` (
   `idnotificacion` INT NOT NULL AUTO_INCREMENT,
-  `nombrenotificacion` VARCHAR(45) NULL,
-  `descripcionnotificacion` VARCHAR(255) NULL,
-  `caducidad` INT NULL,
-  `Usuario_nombreusuario`  VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idnotificacion`, Usuario_nombreusuario),
-  INDEX `fk_Notificacion_Usuario1_nombreusuariox` (`Usuario_nombreusuario` ASC),
+  `Usuario_nombreusuario` VARCHAR(45) NOT NULL,
+  `deportista_nombreusuario` VARCHAR(45) NOT NULL,
+  `titulo` VARCHAR(45) NULL,
+  `mensaje` VARCHAR(300) NOT NULL,
+  PRIMARY KEY (`idnotificacion`),
+  INDEX `fk_Notificacion_Usuario1_idx` (`Usuario_nombreusuario` ASC),
   CONSTRAINT `fk_Notificacion_Usuario1`
     FOREIGN KEY (`Usuario_nombreusuario`)
     REFERENCES `gymGMS`.`Usuario` (`nombreusuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `gimnasio`.`Notificacion_deportista`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gymGMS`.`Notificacion_deportista` (
+  `notificacion_idnotificacion` INT NOT NULL,
+  `deportista_nombreusuario` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`notificacion_idnotificacion`, `deportista_nombreusuario`),
+  INDEX `fk_Notificacion_deportista_Deportista1_idx` (`deportista_nombreusuario` ASC),
+  INDEX `fk_Notificacion_deportista_Notificacion1_idx` (`Notificacion_idNotificacion` ASC),
+  CONSTRAINT `fk_Notificacion_deportista_Notificacion1`
+    FOREIGN KEY (`notificacion_idnotificacion`)
+    REFERENCES `gymGMS`.`Notificacion` (`idnotificacion`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Notificacion_deportista_Deportista1`
+    FOREIGN KEY (`deportista_nombreusuario`)
+    REFERENCES `gymGMS`.`Deportista` (`nombreusuario`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
