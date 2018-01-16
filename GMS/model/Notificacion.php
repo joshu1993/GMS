@@ -11,7 +11,7 @@ class Notificacion
 		$this ->idnotificacion = $idnotificacion;
 		$this ->emisor = $emisor;
 		$this ->titulo = $titulo;
-		$this ->$mensaje = $mensaje;
+		$this ->mensaje = $mensaje;
 	}
 
 
@@ -28,7 +28,7 @@ class Notificacion
 	}
 
 	public function getMensaje(){
-		return $this ->$mensaje;
+		return $this ->mensaje;
 	}
 
 }

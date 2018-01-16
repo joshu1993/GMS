@@ -19,8 +19,8 @@ class ActividadMapper {
 		$listaActividades = array();
 		while ($current = mysqli_fetch_assoc($consulta)) {
 
-      $actividad = new Actividad ($current["nombreActividad"], $current["descripcionActividad"], $current["horario"], $current["capacidad"],
-      $current["tipoActividad"], $current["idActividad"]);
+      $actividad = new Actividad ($current["nombreactividad"], $current["descripcionactividad"], $current["horario"], $current["capacidad"],
+      $current["tipoActividad"], $current["idactividad"]);
 			array_push($listaActividades, $actividad);
 		}
 		return $listaActividades;
@@ -62,6 +62,18 @@ class ActividadMapper {
 
 		return $actividad;
 	}
+	/*
+	 public function registrarActividad ($actividad, $idactividad){
+		global $connect;
+		$consulta = $connect->query("SELECT idactividad FROM Actividad WHERE idactividad ='" .$idactividad. "'");
+		$resultado = mysqli_fetch_assoc($consulta);
+		$sql = " INSERT INTO Actividad ( nombreactividad, descripcionactividad, horario, capacidad, tipoActividad)
+		VALUES ('". $resultado['idactividad'] ."','". $actividad->getnombreactividad() ."', '". $actividad->getdescripcionactividad() ."', '". $actividad->gethorario() ."', '". $actividad->getcapacidad() ."', '". $actividad->gettipoActividad() ."')";
+		$connect->query($sql);
+			
+	}
+	
+	*/
 	
 	public function eliminarActividad ($idActividad){
     global $connect;

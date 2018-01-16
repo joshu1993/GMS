@@ -81,7 +81,7 @@ if (isset($_GET['lang'])) {
                 </div>
 								<?php if($_SESSION['tipousuario'] == "administrador" || $_SESSION['tipousuario'] == "entrenador"){?>
                 <div class="anadir">
-                  <a id="btn_anadir" href="crearEjercicio.php?lang=<?php echo $lang; ?>" class="btn btn-primary" type="button"><?php echo __('Añadir Ejercicio',$lang); ?></a>
+                  <a id="btn_anadir" href="addejercicio.php?lang=<?php echo $lang; ?>" class="btn btn-primary" type="button"><?php echo __('Añadir Ejercicio',$lang); ?></a>
                 </div>
 								<?php } ?>
               </div>
@@ -100,11 +100,17 @@ if (isset($_GET['lang'])) {
                             <p>Descripción: <?php echo $ejercicio->getdescripcionejercicio(); ?></p>
                            
                           </div>
+                         <?php if($_SESSION['rol'] == "administrador" || $_SESSION['rol'] == "entrenador"){?>
                           <div class="opciones_bloque">
-                              
-							   <input   id="btn_eliminar" class="btn btn-primary" title="Eliminar" value="Eliminar"><i class="fa fa-trash-o" aria-hidden="true" ></i></input> 
-                          </div>
-                        </div>
+								<a id="btn_edit_bloque" href="../view/editejercicio.php?lang=<?php echo $lang; ?>&idejercicio=
+								<?php echo $ejercicio->getidejercicio(); ?>" class="btn btn-primary" type="button">
+								<i class="fa fa-edit" aria-hidden="true" title="<?php echo __('modificar',$lang); ?>"></i></a>
+								<a id="btn_eliminar" href="deleteejercicio.php?lang=<?php echo $lang; ?>&idejercicio=
+								<?php echo $ejercicio->getidejercicio(); ?>" class="btn btn-primary" type="button" title="
+								<?php echo __('Eliminar',$lang); ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+								</div>
+                        	</div>
+					<?php } ?>
                       </ul>
                       <?php } ?>
               			</li>

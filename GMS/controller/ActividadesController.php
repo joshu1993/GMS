@@ -44,7 +44,7 @@ class ActividadesController {
 
 
 	
-		public function registrarActividad (){
+		public function registrarActividad(){
 		
 		$actividadMapper = new ActividadMapper();
 		global $connect;
@@ -67,7 +67,7 @@ class ActividadesController {
 		$tipoActividad = $_POST['tipoActividad'];
 		
 		$actividad = new Actividad ($nombreactividad,$descripcionactividad,$horario,$capacidad,$tipoActividad);
-		$actividadMapper->registrarActividad($actividad, $nombreactividad);
+		//$actividadMapper->registrarActividad($actividad, $idactividad);
 		header ("Location: ../view/adminActividades.php?lang=$lang");
 
 	}

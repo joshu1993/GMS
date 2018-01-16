@@ -87,7 +87,7 @@ if (isset($_GET['lang'])) {
                     </div>
 						<?php if($_SESSION['tipousuario'] == "administrador" || $_SESSION['tipousuario'] == "entrenador"){?>
                             <div class="anadir">
-                                <a id="btn_anadir" href="../view/crearActividad.php?lang=<?php echo $lang; ?>" class="btn btn-primary" type="button"><?php echo __('Añadir Actividad',$lang);?></a>
+                                <a id="btn_anadir" href="../view/addactividad.php?lang=<?php echo $lang; ?>" class="btn btn-primary" type="button"><?php echo __('Añadir Actividad',$lang);?></a>
 
                                 <a id="btn_anadir" href="../view/verEstadisticasActividad.php?lang=<?php echo $lang; ?>" class="btn btn-primary" type="button"><?php echo __('Estadísticas',$lang); ?></a>
                             </div>
@@ -114,10 +114,10 @@ if (isset($_GET['lang'])) {
 						</div>
 						<?php if($_SESSION['tipousuario'] == "administrador" || $_SESSION['tipousuario'] == "entrenador"){?>
 						<div class="opciones_bloque">
-							<a id="btn_edit_bloque" href="modificarActividad.php?lang=<?php echo $lang; ?>&idactividad=<?php echo $actividad->getidactividad(); ?>" class="btn btn-primary" title="<?php echo __('Editar',$lang); ?>" type="button">
+							<a id="btn_edit_bloque" href="editctividad.php?lang=<?php echo $lang; ?>&idactividad=<?php echo $actividad->getidactividad(); ?>" class="btn btn-primary" title="<?php echo __('Editar',$lang); ?>" type="button">
 								<i class="fa fa-edit" aria-hidden="true"></i>
 							</a>
-							<a id="btn_eliminar" href="eliminarActividad.php?lang=<?php echo $lang; ?>&idactividad=<?php echo $actividad->getidactividad(); ?>" class="btn btn-primary" title="<?php echo __('Eliminar',$lang); ?>" type="button">
+							<a id="btn_eliminar" href="deleteActividad.php?lang=<?php echo $lang; ?>&idactividad=<?php echo $actividad->getidactividad(); ?>" class="btn btn-primary" title="<?php echo __('Eliminar',$lang); ?>" type="button">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</a>
 						</div>

@@ -58,7 +58,7 @@ if (isset($_GET['lang'])) {
 </head>
 
 <body>
-    <div id="Menuppl">
+    <div id="wrapper">
 			<?php
 			include("navbar.php");
 			include("Menuppl.php");
@@ -72,7 +72,7 @@ if (isset($_GET['lang'])) {
         <div>
 
 					<?php $deportistas = $dcontroler->listaDeportistas();?>
-  				<form name="form_notif" action="../controller/controller.php?lang=<?php echo $lang; ?>&controller=NotificacionesController&amp;accion=newNotificacion" method="post" >
+  				<form name="form_notif" action="../controller/Controller.php?lang=<?php echo $lang; ?>&controller=NotificacionesController&amp;accion=newNotificacion" method="post" >
 						<div class="formulario_not">
 							<div class="info_notif">
 	              <label for="nombre"><?php echo __('Título',$lang); ?> :</label>
@@ -91,7 +91,8 @@ if (isset($_GET['lang'])) {
 									<?php
 									 foreach ($deportistas as $deportista): ?>
 									<li>
-											<input type="checkbox" name="receptores[]" value="<?php echo $deportista->getUsername(); ?>" ><?php echo $deportista->getName()."; ?></input>
+											<input type="checkbox" name="receptores[]" value="<?php echo $deportista->getUsername();
+											?>" ><?php echo $deportista->getNombre().": ".$deportista->getUsername(); ?></input>
 									</li>
 								<?php endforeach;?>
 								</ul>

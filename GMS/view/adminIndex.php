@@ -60,7 +60,7 @@ if (isset($_GET['lang'])) {
 </head>
 
 <body>
-	<div id="Menuppl">
+	<div id="wrapper">
 			<?php
 			include("navbar.php");
 			include("Menuppl.php");
@@ -72,7 +72,7 @@ if (isset($_GET['lang'])) {
 				</div>
 				<?php if($_SESSION['tipousuario'] == "administrador" || $_SESSION['tipousuario'] == "entrenador"):?>
 				<div class="contenido_index">
-					<a type="button" id="btn_notificacion" class="btn btn-primary" href="crearNotificacion.php?lang=<?php echo $lang; ?>" ><?php echo __('Nueva notificacion',$lang); ?></a>
+					<a type="button" id="btn_notificacion" class="btn btn-primary" href="addnotificacion.php?lang=<?php echo $lang; ?>" ><?php echo __('Nueva notificacion',$lang); ?></a>
 				</div>
 				<div class="listado">
 					<div class="header_lista">
@@ -96,7 +96,7 @@ if (isset($_GET['lang'])) {
 								<p><?php echo substr($notificacion->getDescripcion(),0,90); ?>...</p>
 							</div>
 							<div class="opciones_bloque opc_bl">
-								<a id="btn_eliminar" href="eliminarNotificacion.php?lang=<?php echo $lang ?>&idNotificacion=<?php echo $notificacion->getId(); ?>" class="btn btn-primary" title="<?php echo __('Eliminar',$lang); ?>" type="button">
+								<a id="btn_eliminar" href="deletenotificacion.php?lang=<?php echo $lang ?>&idNotificacion=<?php echo $notificacion->getId(); ?>" class="btn btn-primary" title="<?php echo __('Eliminar',$lang); ?>" type="button">
 									<i class="fa fa-trash-o" aria-hidden="true"></i>
 								</a>
 							</div>
