@@ -5,9 +5,9 @@ require_once("../controller/UsersController.php");
 if(!isset($_SESSION)) session_start();
 $ucontroler = new UsersController();
 $usuarioActual =  $ucontroler->getcurrentUser($_SESSION['nombreusuario']);
-if($_SESSION['tipousuario'] != "administrador" && $_SESSION['tipousuario'] != "entrenador"){
-	header("Location: error.php");
-	exit();
+if($_SESSION['tipousuario'] != "administrador"){
+  header("Location: error.php");
+  exit();
 }
 
 if (isset($_GET['lang'])) {
@@ -27,7 +27,7 @@ if (isset($_GET['lang'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> Nuevo Deportista - Ufitness</title>
+    <title> Nuevo Entrenador - Ufitness</title>
 
     <link href="css/style.css" rel="stylesheet">
 
@@ -60,7 +60,7 @@ if (isset($_GET['lang'])) {
 			include("Menuppl.php");
 			?>
 
-      <h1><?= i18n("Añadir deportista")?></h1>
+      <h1><?= i18n("Añadir entrenador")?></h1>
 <div class=crearEjercicio>
 <form action="index.php?controller=users&amp;action=register" method="POST">
 	<?= i18n('Nombre de usuario', $lang)?>: <input type="text" name="nombreusuario"
@@ -72,10 +72,6 @@ if (isset($_GET['lang'])) {
   <?= i18n("Contraseña")?>: <input type=password name="contraseña" required="true"
 	value="<?= $user->getPassword() ?>">
 	<?= isset($errors["contraseña"])?i18n($errors["contraseña"]):"" ?><br>
-              <?php echo __('Tipo Deportista',$lang); ?>: <select name="tipo" class="select">
-			                                            <option value="tdu" selected>TDU</option>
-			                                            <option value="pef">PEF</option>
-            																	 </select>
 							<div class="form_submit">
 								<input id="submit" class="btn btn-primary" type="submit" value="<?php echo __('Registrar',$lang); ?>">
 							</div>
