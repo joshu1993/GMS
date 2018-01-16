@@ -45,7 +45,7 @@ session_destroy();
 </head>
 
 <body>
-    <div id="menuppl">
+    <div id="Menuppl">
 
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -61,11 +61,11 @@ session_destroy();
                             <div class="col-lg-12">
                                 <div class="text-center"><h3><b>Entrar</b></h3></div>
                                     <div class="form-group">
-                                      <form action="controller/controller.php?controller=UsersController&amp;accion=login" method="post">
-                                        <label for="username">Nombre de usuario</label>
+                                      <form action="controller/Controller.php?Controller=UsersController&amp;accion=login" method="post">
+                                        <label for="nombreusuario">Nombre de usuario</label>
                                         <input type="text" name="nombreusuario" id="nombreusuario" tabindex="1" class="form-control" placeholder="nombre del usuario" value="" autocomplete="off">
-                                        <label for="password">Contraseña</label>
-                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña" autocomplete="off">
+                                        <label for="contraseña">Contraseña</label>
+                                        <input type="password" name="contraseña" id="contraseña" tabindex="2" class="form-control" placeholder="Contraseña" autocomplete="off">
                                         <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-success" value="Log In">
                                       </form>
                                     </div>

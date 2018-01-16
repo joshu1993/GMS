@@ -14,6 +14,7 @@ class UsersController{
 
 //LOGIN
 public static function login(){
+	
 		global $connect;
 		$nombreusuario = $_POST['nombreusuario'];
 		$contraseña = $_POST['contraseña'];
@@ -26,10 +27,10 @@ public static function login(){
 			header("Location: ../index.php?lang=$lang");
 			exit();
 		}
-		$consulta = "SELECT * FROM usuario WHERE nombreusuario='". $nombreusuario."'";
+		$consulta = "SELECT * FROM Usuario WHERE nombreusuario='". $nombreusuario."'";
 		$resultado = $connect->query($consulta);
 		if($row = mysqli_fetch_assoc($resultado)){
-			if($row['contraseña'] == contraseña){
+			if($row['contraseña'] == $contraseña){
 			session_start();
 			$_SESSION['nombreusuario'] = $nombreusuario;
 			$_SESSION['tipousuario'] = $row['tipousuario'];

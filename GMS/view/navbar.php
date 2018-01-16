@@ -1,7 +1,7 @@
 <?php
 
 require_once("../core/ConnectionBD.php");
-
+require_once("../core/languages.php");
 
 ?>
 
@@ -43,7 +43,7 @@ require_once("../core/ConnectionBD.php");
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="../controller/controller.php?lang=<?php echo $lang; ?>&controlador=UsersController&accion=logout"><i class="fa fa-fw fa-power-off"></i> <?php echo __('Desconectarse',$lang); ?> </a>
+                            <a href="../controller/controller.php?lang=<?php echo $lang; ?>&controller=UsersController&accion=logout"><i class="fa fa-fw fa-power-off"></i> <?php echo __('Desconectarse',$lang); ?> </a>
                         </li>
                     </ul>
                 </li>

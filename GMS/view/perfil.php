@@ -1,11 +1,12 @@
-<?php
-require_once("../core/connectionBD.php");
+<?php 
+require_once("../core/ConnectionBD.php");
 require_once("../controller/UsersController.php");
 
 if(!isset($_SESSION)) session_start();
 $ucontroler = new UsersController();
 $usuarioActual =  $ucontroler->getcurrentUser($_SESSION['nombreusuario']);
-if($_SESSION['tipousuario'] != "administrador" && $_SESSION['tipousuario'] != "entrenador"){
+
+if($_SESSION['tipousuario'] != "administrador" && $_SESSION['tipousuario'] != "entrenador" && $_SESSION['tipousuario'] != "deportista"){
 	header("Location: error.php");
 	exit();
 }
@@ -13,11 +14,13 @@ if($_SESSION['tipousuario'] != "administrador" && $_SESSION['tipousuario'] != "e
 if (isset($_GET['lang'])) {
      $lang = $_GET['lang'];
        }else{
-		   $lang="es";
-	   }
+           $lang="es";
+       }
 
 ?>
 
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -27,7 +30,7 @@ if (isset($_GET['lang'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> Nuevo Deportista - Ufitness</title>
+    <title> userIndex - GMS</title>
 
     <link href="css/style.css" rel="stylesheet">
 
@@ -54,34 +57,27 @@ if (isset($_GET['lang'])) {
 </head>
 
 <body>
-    <div id="wrapper">
-			<?php
+
+			<?php 
 			include("navbar.php");
-			include("wrapper.php");
+			include("Menuppl.php"); 
+			
 			?>
-
-      <h1><?= i18n("Registro")?></h1>
-<div class=crearEjercicio>
-<form action="index.php?controller=users&amp;action=register" method="POST">
-	<?= i18n('Nombre de usuario', $lang)?>: <input type="text" name="nombreusuario"
-	value="<?= $user->getUsername() ?>">
-	<?= isset($errors["nombreusuario"])?i18n($errors["nombreusuario"]):"" ?><br>
-  <?= i18n("Contraseña")?>: <input type=password name="contraseña" required="true"
-	value="<?= $user->getPassword() ?>">
-	<?= isset($errors["contraseña"])?i18n($errors["contraseña"]):"" ?><br>
-              <?php echo __('Tipo Deportista',$lang); ?>: <select name="tipo" class="select">
-			                                            <option value="tdu" selected>TDU</option>
-			                                            <option value="pef">PEF</option>
-            																	 </select>
-							<div class="form_submit">
-								<input id="submit" class="btn btn-primary" type="submit" value="<?php echo __('Registrar',$lang); ?>">
+			
+			<div id="datos_user" class="container-fluid">
+				<div id="titulo_perfil" class="titulo_seccion">
+					<h2><strong><?php echo __('Perfil',$lang); ?> : </strong><?php echo $_SESSION['tipousuario']; ?></h2>
+						<div class="bloque_lista">
+							<div class="info_bloque">
+								<h4><strong> <?php echo __('Nombre',$lang); ?> : </strong><br> <?php echo $usuarioActual-> getName(); ?></br></h4>
+								
+								<h4><strong> Email: </strong><br> <?php  echo $usuarioActual-> getMail(); ?> </br></h4>
+								
 							</div>
-
-          </form>
-        </div>
+						</div>
+					</div>
 			</div>
-    </div>
-
+			
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -91,3 +87,4 @@ if (isset($_GET['lang'])) {
 </body>
 
 </html>
+

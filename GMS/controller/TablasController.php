@@ -9,10 +9,10 @@ require_once(__DIR__."/../model/UserMapper.php");
 
 
 require_once(__DIR__."/../core/ViewManager.php");
-require_once(__DIR__."/../controller/BaseController.php");
+//require_once(__DIR__."/../controller/Controller.php");
 
 
-class TablasController extends BaseController {
+class TablasController  {
 
 
 	private $tablaMapper;

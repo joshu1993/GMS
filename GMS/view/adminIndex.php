@@ -32,7 +32,7 @@ if (isset($_GET['lang'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> Inicio - Ufitness</title>
+    <title> Inicio - GMS</title>
 
     <link href="css/style.css" rel="stylesheet">
 
@@ -59,10 +59,10 @@ if (isset($_GET['lang'])) {
 </head>
 
 <body>
-	<div id="wrapper">
+	<div id="Menuppl">
 			<?php
 			include("navbar.php");
-			include("wrapper.php");
+			include("Menuppl.php");
 			?>
 
 			<div id="contenido" class="container-fluid">

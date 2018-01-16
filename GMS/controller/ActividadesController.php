@@ -6,10 +6,10 @@ require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../core/ConnectionBD.php");
 require_once(__DIR__."/../core/ViewManager.php");
-require_once(__DIR__."/../controller/BaseController.php");
+//require_once(__DIR__."/../controller/Controller.php");
 
 
-class ActividadesController extends BaseController {
+class ActividadesController {
 
 
 	private $actividadMapper;

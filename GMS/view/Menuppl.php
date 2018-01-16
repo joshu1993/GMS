@@ -1,7 +1,7 @@
 <?php
 
 require_once("../core/connectionBD.php");
-//require_once("../resources/languages.php");
+require_once("../core/languages.php");
 
 if (isset($_GET['lang'])) {
      $lang = $_GET['lang'];
@@ -12,7 +12,7 @@ if (isset($_GET['lang'])) {
      switch($_SESSION['tipoUsuario']){
 				case "administrador":
 				echo '
-			<div id="menuppl">
+			<div id="Menuppl">
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li id="menu_lat">
@@ -43,7 +43,7 @@ if (isset($_GET['lang'])) {
     case "entrenador":
 
     echo '
-				<div id="wrapper">
+				<div id="Menuppl">
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li id="menu_lat">
@@ -70,7 +70,7 @@ if (isset($_GET['lang'])) {
     case "deportista":
 
     echo '
-				<div id="menuppl">
+				<div id="Menuppl">
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li id="menu_lat">
