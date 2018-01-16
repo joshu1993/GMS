@@ -70,7 +70,7 @@ if (isset($_GET['lang'])) {
 				<div id="titulo_index" class="titulo_seccion">
 					<h1><strong><?php echo __('Bienvenido a Ufitness',$lang); ?></strong></h1>
 				</div>
-				<?php if($_SESSION['tipoUsuario'] == "administrador" || $_SESSION['tipoUsuario'] == "entrenador"):?>
+				<?php if($_SESSION['tipousuario'] == "administrador" || $_SESSION['tipousuario'] == "entrenador"):?>
 				<div class="contenido_index">
 					<a type="button" id="btn_notificacion" class="btn btn-primary" href="crearNotificacion.php?lang=<?php echo $lang; ?>" ><?php echo __('Nueva notificacion',$lang); ?></a>
 				</div>
@@ -106,7 +106,7 @@ if (isset($_GET['lang'])) {
 				</div>
 
 				<?php else:
-					$listaNotificaciones = $ncontroler->listaNotificacionesReceptor($_SESSION["Dni"]);
+					$listaNotificaciones = $ncontroler->listaNotificacionesReceptor($_SESSION["nombreusuario"]);
 				?>
 
 				<div class="listado">

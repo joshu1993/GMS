@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `gymGMS`.`Usuario` (
   `nombre` VARCHAR(45) NULL,
   `contraseña` VARCHAR(45) NULL,
   `correo` VARCHAR(45) NULL,
-  `tipousuario` VARCHAR(15) NULL,
+  `tipousuario` ENUM('administrador', 'entrenador', 'deportista') NOT NULL,
   PRIMARY KEY (`nombreusuario`),
    INDEX `fk_Usuario_Usuario1_idx` (`Usuario_nombreusuario` ASC),
   CONSTRAINT `fk_Usuario_Usuario1`
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `gymGMS`.`Usuario` (
 ENGINE = InnoDB;
 
 INSERT INTO `Usuario` (`nombreusuario`, `Usuario_nombreusuario`, `nombre`, `contraseña`, `correo`, `tipousuario`) VALUES
-( 'domingo24',NULL, 'Doming', 'domingo1', 'domingo@gmail.com', 'admin'),
+( 'domingo24',NULL, 'Doming', 'domingo1', 'domingo@gmail.com', 'administrador'),
 ( 'joshua4','domingo24','Joshua', 'joshua1', 'joshua@gmail.com', 'entrenador'),
 ( 'jose2','domingo24','Jose', 'jose1', 'jose@gmail.com', 'deportista');
 

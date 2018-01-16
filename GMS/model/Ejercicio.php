@@ -16,7 +16,7 @@ class Ejercicio {
 
 
 
-	function __construct($nombreejercicio, $usuario_nombreusuario, $descripcionejercicio, $idEjercicio = null)
+	function __construct($nombreejercicio, $usuario_nombreusuario, $descripcionejercicio, $idejercicio = null)
 	{
 		$this ->idejercicio = $idejercicio;
 		$this ->nombreejercicio = $nombreejercicio;

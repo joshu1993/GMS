@@ -25,7 +25,7 @@ public static function login(){
 		}
 		if(empty($usuario) || empty($contraseña)){
 			header("Location: ../index.php?lang=$lang");
-			//header("Location: ../view/adminIndex.php?lang=$lang");
+			
 			exit();
 		}
 		$consulta = "SELECT * FROM Usuario WHERE nombreusuario='". $usuario."'";
@@ -37,15 +37,15 @@ public static function login(){
 			$_SESSION['tipousuario'] = $row['tipousuario'];
 			
 			header("Location: ../view/adminIndex.php?lang=$lang");
-			//header("Location: ../index.php?lang=$lang");
+			
 			}else{
 				header("Location: ../index.php?lang=$lang");
-				//header("Location: ../view/adminIndex.php?lang=$lang");
+			
 				exit();
 			}
 		}else{
 			header("Location: ../index.php?lang=$lang");
-			//header("Location: ../view/adminIndex.php?lang=$lang");
+		
 			exit();
 		}
 	}

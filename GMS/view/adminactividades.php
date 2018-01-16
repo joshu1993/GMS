@@ -29,7 +29,7 @@ if (isset($_GET['lang'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> Actividades - Ufitness</title>
+    <title> Actividades - GMS</title>
 
     <link href="css/style.css" rel="stylesheet">
 
@@ -65,7 +65,7 @@ if (isset($_GET['lang'])) {
 
 		<?php
 			include("navbar.php");
-			include("wrapper.php");
+			include("Menuppl.php");
 			$acontroler = new ActividadesController();
 
 			if (isset($_GET['eliminar'])){

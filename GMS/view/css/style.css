@@ -1,184 +1,5 @@
 
 
-
-
-/*
-
-
-body, header {
-  font-family: 'Raleway';
-  overflow: auto;
-}
-
-.navbar {
-  border-radius: 0px;
-  background: #9B0847;
-  border: none;
-}
-
-.body-index{
-  background-image: url("fondorojo.jpg");
-  background-position: top center;
-  background-repeat: no-repeat;
-}
-h1, h3{
-  color: white;
-  text-align: center;
-}
-
-
-
-#ver-ejercicio{
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  text-align: center;
-  color: white;
-  padding-left: 30px;
-  padding-right: 30px;
-}
-
-#vistaejercicio{
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  text-align: center;
-}
-
-.tablas{
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.tablas td, #tablas th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.tablas tr:nth-child(even){background-color: #f2f2f2;}
-
-.tablas tr {background-color: #ddd;}
-
-.tablas th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #9B0847;
-    color: white;
-}
-
-#nuevo-ejercicio{
-  padding: 1px;
-  font-size: 15px;
-}
-
-#nueva-tabla{
-  padding: 1px;
-  font-size: 15px;
-}
-
-input[type=text], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-input[type=submit] {
-    width: 100%;
-    background-color: #9B0847;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.form {
-    width: 100%;
-    background-color: #f2f2f2;
-    color: black;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-input[type=submit]:hover {
-    background-color: #910787;
-}
-.padre{
-  display: inline-block;
-}
-
-.crearEjercicio {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-}
-
-
-#languagechooser li, ul{
-  display: inline-block;
-  padding: 7px 0px 0px 5px;
-}
-
-
-#navfontcolor p, #navfontcolor a{
-  color: white;
-}
-
-.navbar-brand{
-  font-size: 25px;
-}
-
-.navbar-right{
-  font-size: 18px;
-}
-
-.glyphicon-user{
-  margin-left: 15px;
-}
-
-
-
-
-
-
-.scrollbar::-webkit-scrollbar {
-    width: 7px;
-}
-
-.scrollbar::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-
-.scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(125, 125, 125, 0.7);
-  outline: 1px solid #7D7D7D;
-  border-radius: 10px;
-}
-
-
-
-
-
-
-#flash{
-  text-align: center;
-  color: #337ab7;
-}
-
-#flasherror{
-  text-align: center;
-  color: red;
-}
-
-}
-
-*/
 .content_map{
   display:flex;
   justify-content: center;
@@ -547,7 +368,7 @@ margin-bottom: 5px;
 
 #btn_eliminar{
   background-color: #F2463B;
-  width: 50px;
+  width: 150px;
   height: 50px;
   font-size: 30px;
   padding: 5px;
@@ -593,6 +414,7 @@ margin-bottom: 5px;
 
 #btn_eliminar:hover{
   background-color: #F73224;
+  
 }
 
 #btn_imprimir{

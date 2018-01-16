@@ -9,7 +9,7 @@ if (isset($_GET['lang'])) {
 		   $lang="es";
 	   }
 
-     switch($_SESSION['tipoUsuario']){
+     switch($_SESSION['tipousuario']){
 				case "administrador":
 				echo '
 			<div id="Menuppl">

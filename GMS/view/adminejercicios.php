@@ -66,7 +66,7 @@ if (isset($_GET['lang'])) {
 
 			<?php
 			include("navbar.php");
-			include("wrapper.php");
+			include("Menuppl.php");
 			?>
 
         <div id="contenido" class="container-fluid">
@@ -79,7 +79,7 @@ if (isset($_GET['lang'])) {
                 <div class="titulo_lista">
                   <h1><?php echo __('Lista de Ejercicios',$lang); ?> </h1>
                 </div>
-								<?php if($_SESSION['tipoUsuario'] == "administrador" || $_SESSION['tipoUsuario'] == "entrenador"){?>
+								<?php if($_SESSION['tipousuario'] == "administrador" || $_SESSION['tipousuario'] == "entrenador"){?>
                 <div class="anadir">
                   <a id="btn_anadir" href="crearEjercicio.php?lang=<?php echo $lang; ?>" class="btn btn-primary" type="button"><?php echo __('Añadir Ejercicio',$lang); ?></a>
                 </div>
@@ -88,7 +88,7 @@ if (isset($_GET['lang'])) {
               <div class="body_pagina">
               
 						<?php
-							 $ejercicios = $econtroler->listaEjerciciosGrupo("Pectorales");
+								$ejercicios = $econtroler->listaEjercicios();
 								 foreach ($ejercicios as $ejercicio) {
 						?>
 						<ul>
@@ -101,7 +101,8 @@ if (isset($_GET['lang'])) {
                            
                           </div>
                           <div class="opciones_bloque">
-                              <a id="btn_eliminar" href="#" class="btn btn-primary" title="Eliminar" type="button"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                              
+							   <input   id="btn_eliminar" class="btn btn-primary" title="Eliminar" value="Eliminar"><i class="fa fa-trash-o" aria-hidden="true" ></i></input> 
                           </div>
                         </div>
                       </ul>
