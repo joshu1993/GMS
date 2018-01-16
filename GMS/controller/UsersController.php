@@ -12,35 +12,40 @@ class UsersController{
 			$this->userMapper = new UserMapper();
 	}
 
-//LOGIN
+
 public static function login(){
 	
 		global $connect;
-		$nombreusuario = $_POST['nombreusuario'];
+		$usuario = $_POST['nombreusuario'];
 		$contraseña = $_POST['contraseña'];
 		if (isset($_GET['lang'])) {
 			$lang = $_GET['lang'];
 		} else {
 			$lang = "es";
 		}
-		if(empty($nombreusuario) || empty($contraseña)){
+		if(empty($usuario) || empty($contraseña)){
 			header("Location: ../index.php?lang=$lang");
+			//header("Location: ../view/adminIndex.php?lang=$lang");
 			exit();
 		}
-		$consulta = "SELECT * FROM Usuario WHERE nombreusuario='". $nombreusuario."'";
+		$consulta = "SELECT * FROM Usuario WHERE nombreusuario='". $usuario."'";
 		$resultado = $connect->query($consulta);
 		if($row = mysqli_fetch_assoc($resultado)){
 			if($row['contraseña'] == $contraseña){
 			session_start();
-			$_SESSION['nombreusuario'] = $nombreusuario;
+			$_SESSION['nombreusuario'] = $usuario;
 			$_SESSION['tipousuario'] = $row['tipousuario'];
+			
 			header("Location: ../view/adminIndex.php?lang=$lang");
+			//header("Location: ../index.php?lang=$lang");
 			}else{
 				header("Location: ../index.php?lang=$lang");
+				//header("Location: ../view/adminIndex.php?lang=$lang");
 				exit();
 			}
 		}else{
 			header("Location: ../index.php?lang=$lang");
+			//header("Location: ../view/adminIndex.php?lang=$lang");
 			exit();
 		}
 	}

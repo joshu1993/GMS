@@ -13,6 +13,7 @@ if($_SESSION['tipousuario'] != "administrador" && $_SESSION['tipousuario'] != "e
 	exit();
 }
 
+
 if (isset($_GET['lang'])) {
      $lang = $_GET['lang'];
        }else{
